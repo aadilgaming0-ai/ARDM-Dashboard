@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>ARDM Performance Report</title>
+    <!-- Premium Font Stack -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        /* ---------------------------------------------
+        DESIGN SYSTEM: 8pt spacing, mobile-first (360px+)
+        Premium, corporate, minimal aesthetic
+        Brand: Maroon (#7b1e3a)
+        --------------------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f6f8fa;
+            color: #1a1e24;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Main container - mobile-first (360-430px) */
+        .dashboard {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px 16px 32px;
+        }
+
+        /* Typography */
+        .text-xs {
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.01em;
+            color: #5e6873;
+        }
+
+        .text-sm {
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .text-base {
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .text-lg {
+            font-size: 18px;
+            line-height: 28px;
+            font-weight: 500;
+        }
+
+        .text-xl {
+            font-size: 20px;
+            line-height: 28px;
+            font-weight: 600;
+        }
+
+        .text-2xl {
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        /* Cards */
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.02);
+            border: 1px solid #edf0f3;
+        }
+
+        .card-brand {
+            background: #7b1e3a;
+            color: white;
+            border: none;
+            box-shadow: 0 6px 14px rgba(123, 30, 58, 0.15);
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .section-header .accent-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #7b1e3a 0%, rgba(123, 30, 58, 0.2) 100%);
+            border-radius: 2px;
+        }
+
+        /* Header & Search */
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #121417;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8a939f;
+            font-size: 16px;
+            opacity: 0.7;
+        }
+
+        #sapInput {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            border: 1.5px solid #e2e7ed;
+            border-radius: 18px;
+            background: #ffffff;
+            transition: all 0.15s ease;
+        }
+
+        #sapInput:focus {
+            outline: none;
+            border-color: #7b1e3a;
+            box-shadow: 0 0 0 3px rgba(123, 30, 58, 0.08);
+        }
+
+        .btn-primary {
+            background: #7b1e3a;
+            color: white;
+            border: none;
+            border-radius: 18px;
+            padding: 16px 22px;
+            font-weight: 500;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-primary:active {
+            background: #64162f;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Loading States */
+        .loading-skeleton {
+            animation: pulse 1.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .loading-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .loading-line {
+            height: 14px;
+            background: #eef2f6;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .loading-line.short { width: 40%; }
+        .loading-line.medium { width: 70%; }
+        .loading-line.long { width: 90%; }
+
+        /* Error Card */
+        .error-card {
+            background: #fff8f8;
+            border: 1px solid #ffdbdb;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        /* Employee Identity */
+        .sap-badge {
+            display: inline-block;
+            background: #f0f2f5;
+            color: #4b5563;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .employee-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #121417;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+            word-break: break-word;
+        }
+
+        .meta-grid {
+            display: flex;
+            gap: 20px;
+            padding-top: 12px;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .meta-item {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: #6f7885;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            color: #1f2a3a;
+            font-size: 14px;
+            word-break: break-word;
+        }
+
+        /* Monthly Performance Grid (4 items) */
+        .monthly-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .monthly-card {
+            background: #f9fafc;
+            border-radius: 16px;
+            padding: 16px 14px;
+            border: 1px solid #eef2f6;
+        }
+
+        .monthly-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .monthly-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        /* Club Sections - Side by Side */
+        .clubs-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .club-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 16px;
+            border: 1px solid #edf0f3;
+        }
+
+        .club-card.champion {
+            background: linear-gradient(145deg, #ffffff, #faf5f7);
+            border-color: #e9d5da;
+        }
+
+        .club-card.super-champion {
+            background: linear-gradient(145deg, #ffffff, #f5f3fa);
+            border-color: #d5d9e9;
+        }
+
+        .club-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #7b1e3a;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #edf2f8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .club-title.super {
+            color: #4f46e5;
+        }
+
+        .club-metric {
+            margin-bottom: 12px;
+        }
+
+        .club-metric:last-child {
+            margin-bottom: 0;
+        }
+
+        .club-metric-label {
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .club-metric-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .club-metric-value.shortfall {
+            color: #b45353;
+        }
+
+        /* Highest Slab */
+        .slab-container {
+            background: #fefcf5;
+            border: 1px solid #f3e2c2;
+            border-radius: 18px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .slab-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #8e6b2c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .slab-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #7b1e3a;
+            background: rgba(123, 30, 58, 0.05);
+            padding: 4px 16px;
+            border-radius: 40px;
+        }
+
+        /* Final Reward */
+        .reward-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .reward-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+
+        .reward-amount {
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        /* Month Section (existing) */
+        .month-section {
+            border: 1px solid #e9ecf0;
+            border-radius: 18px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 16px;
+            background: white;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .month-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .month-header-left span {
+            font-weight: 500;
+            color: #1e2a3a;
+        }
+
+        .dropdown-icon {
+            font-size: 12px;
+            color: #7b1e3a;
+            transition: transform 0.2s ease;
+        }
+
+        .month-header.expanded .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        .preview-values {
+            font-size: 13px;
+            color: #4d5a6b;
+            background: #f3f5f8;
+            padding: 4px 12px;
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+
+        .month-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            background: #fafbfd;
+        }
+
+        .month-content.expanded {
+            max-height: 600px;
+            opacity: 1;
+            padding: 8px 8px 16px;
+        }
+
+        .month-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 0 8px;
+        }
+
+        .month-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid #edf2f8;
+            font-size: 15px;
+        }
+
+        .month-row .month {
+            font-weight: 500;
+            color: #1e2a3a;
+            min-width: 50px;
+        }
+
+        .month-row .wrp-value {
+            font-weight: 600;
+            color: #7b1e3a;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .month-row .wcp-value {
+            font-weight: 600;
+            color: #1f5f5f;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .month-row .zero-value {
+            color: #a6b2c1;
+            font-weight: 400;
+        }
+
+        .month-header-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 16px;
+            font-size: 12px;
+            color: #5f6c80;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 4px;
+        }
+
+        /* Desktop adaptation */
+        @media (min-width: 640px) {
+            .dashboard {
+                max-width: 700px;
+            }
+            .monthly-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header with search -->
+        <div class="page-header">
+            <h1>ARDM Performance Report</h1>
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" id="sapInput" placeholder="Enter SAP ID" autocomplete="off">
+                </div>
+                <button class="btn-primary" onclick="fetchData()" id="searchBtn">Search</button>
+            </div>
+        </div>
+
+        <!-- Dynamic content area -->
+        <div id="content">
+            <!-- Welcome message -->
+            <div class="card" style="text-align: center; padding: 40px 20px;">
+                <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                <div style="font-size: 18px; font-weight: 500; color: #2c3e50; margin-bottom: 8px;">Welcome to ARDM Performance Report</div>
+                <div class="text-xs" style="color: #7f8c8d;">Enter an SAP ID above to view performance data</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // IMPORTANT: Replace this with your Google Apps Script URL
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzKXDilaOh8JJrTypyUGilXfezrah5Hd4QnEC6iM8tloMuQVIYODupBZV6H4DO9DKIIQg/exec";
+
+        // DOM Elements
+        const searchBtn = document.getElementById('searchBtn');
+        const sapInput = document.getElementById('sapInput');
+
+        // Show loading state
+        function showLoading() {
+            document.getElementById("content").innerHTML = `
+                <div class="loading-skeleton">
+                    <div class="loading-card">
+                        <div class="loading-line short"></div>
+                        <div class="loading-line medium"></div>
+                        <div class="loading-line long"></div>
+                    </div>
+                    <div class="loading-card">
+                        <div class="loading-line short"></div>
+                        <div class="loading-line medium"></div>
+                        <div class="loading-line long"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show error message
+        function showError(msg) {
+            document.getElementById("content").innerHTML = `
+                <div class="error-card">
+                    <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+                    <div style="font-weight: 600; color: #b91c1c; font-size: 18px; margin-bottom: 8px;">Error</div>
+                    <div style="color: #64748b;">${msg || 'Unable to load data'}</div>
+                </div>
+            `;
+        }
+
+        // Toggle month section
+        window.toggleMonthSection = function(header) {
+            const section = header.closest('.month-section');
+            const content = section.querySelector('.month-content');
+            header.classList.toggle('expanded');
+            content.classList.toggle('expanded');
+        };
+
+        // Format currency to Indian format
+        function formatCurrency(value) {
+            const num = Number(value) || 0;
+            return num.toLocaleString('en-IN');
+        }
+
+        // Safely get value with fallback
+        function getValue(obj, possibleKeys, defaultValue = '—') {
+            if (!obj) return defaultValue;
+            
+            for (let key of possibleKeys) {
+                if (obj[key] !== undefined && obj[key] !== null && obj[key] !== '') {
+                    return obj[key];
+                }
+            }
+            return defaultValue;
+        }
+
+        // Main fetch function
+        function fetchData() {
+            const sap = sapInput.value.trim();
+            
+            if (!sap) {
+                showError('Please enter an SAP ID');
+                sapInput.focus();
+                return;
+            }
+            
+            searchBtn.disabled = true;
+            searchBtn.style.opacity = '0.6';
+            showLoading();
+            
+            fetch(`${WEB_APP_URL}?sap=${encodeURIComponent(sap)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        showError(data.error);
+                    } else {
+                        renderDashboard(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    showError('Connection error. Please check your internet and try again.');
+                })
+                .finally(() => {
+                    searchBtn.disabled = false;
+                    searchBtn.style.opacity = '1';
+                });
+        }
+
+        // Render the dashboard with employee data
+        function renderDashboard(emp) {
+            // Month mappings
+            const months = [
+                { wrpKey: "WRP_4", wcpKey: "CCP_4", name: "Apr" },
+                { wrpKey: "WRP_5", wcpKey: "CCP_5", name: "May" },
+                { wrpKey: "WRP_6", wcpKey: "CCP_6", name: "Jun" },
+                { wrpKey: "WRP_7", wcpKey: "CCP_7", name: "Jul" },
+                { wrpKey: "WRP_8", wcpKey: "CCP_8", name: "Aug" },
+                { wrpKey: "WRP_9", wcpKey: "CCP_9", name: "Sep" },
+                { wrpKey: "WRP_10", wcpKey: "CCP_10", name: "Oct" },
+                { wrpKey: "WRP_11", wcpKey: "CCP_11", name: "Nov" },
+                { wrpKey: "WRP_12", wcpKey: "CCP_12", name: "Dec" },
+                { wrpKey: "WRP_1", wcpKey: "CCP_1", name: "Jan" },
+                { wrpKey: "WRP_2", wcpKey: "CCP_2", name: "Feb" },
+                { wrpKey: "WRP_3", wcpKey: "CCP_3", name: "Mar" }
+            ];
+
+            const latest = months[months.length-1];
+            const latestWrp = emp[latest.wrpKey] || 0;
+            const latestWcp = emp[latest.wcpKey] || 0;
+
+            document.getElementById("content").innerHTML = `
+                <!-- 1. EMPLOYEE IDENTITY -->
+                <div class="card">
+                    <div class="sap-badge">SAP · ${getValue(emp, ['SAP', 'sap', 'SAP Code', 'SAP_ID', 'SAP ID'])}</div>
+                    <div class="employee-name">${getValue(emp, ['Name of the ARDM', 'name', 'Employee Name', 'ARDM Name', 'ARDM'])}</div>
+                    <div class="meta-grid">
+                        <div class="meta-item">
+                            <div class="meta-label">Channel</div>
+                            <div class="meta-value">${getValue(emp, ['Channel Name', 'channel', 'Channel', 'CHANNEL'])}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Region</div>
+                            <div class="meta-value">${getValue(emp, ['Region', 'region', 'REGION'])}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Branch</div>
+                            <div class="meta-value">${getValue(emp, ['Salesunit Name', 'branch', 'Sales Unit', 'Salesunit', 'BRANCH'])}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. MONTHLY PERFORMANCE METRICS -->
+                <div class="card">
+                    <div class="section-header">
+                        <h2>Monthly Performance</h2>
+                        <div class="accent-line"></div>
+                    </div>
+                    <div class="monthly-grid">
+                        <div class="monthly-card">
+                            <div class="monthly-label">👥 L1 Recruited</div>
+                            <div class="monthly-value">${getValue(emp, ['L1_Recruited', 'L1 Recruited', 'L1Recruited'], 0)}</div>
+                        </div>
+                        <div class="monthly-card">
+                            <div class="monthly-label">📋 Active L1</div>
+                            <div class="monthly-value">${getValue(emp, ['L1_Active', 'L1 Active', 'L1Active'], 0)}</div>
+                        </div>
+                        <div class="monthly-card">
+                            <div class="monthly-label">📦 NOP</div>
+                            <div class="monthly-value">${getValue(emp, ['NOP', 'Nop'], 0)}</div>
+                        </div>
+                        <div class="monthly-card">
+                            <div class="monthly-label">⚡ MTD WCP</div>
+                            <div class="monthly-value">${getValue(emp, ['MTD_WCP', 'MTD WCP', 'MTD'], 0)}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. CLUB SECTIONS - SIDE BY SIDE -->
+                <div class="clubs-container">
+                    <!-- Champion Club -->
+                    <div class="club-card champion">
+                        <div class="club-title">
+                            <span>🏆</span> Champion Club
+                        </div>
+                        <div class="club-metric">
+                            <div class="club-metric-label">CCP for Champion Club</div>
+                            <div class="club-metric-value">${getValue(emp, ['CCP for Champion Club', 'CCP Champion Club', 'CCP_Champion'], 0)}</div>
+                        </div>
+                        <div class="club-metric">
+                            <div class="club-metric-label">CC Shortfall</div>
+                            <div class="club-metric-value shortfall">${getValue(emp, ['Champion Club Shortfall', 'CC Shortfall', 'CC_Shortfall'], 0)}</div>
+                        </div>
+                    </div>
+
+                    <!-- Super Champion Club -->
+                    <div class="club-card super-champion">
+                        <div class="club-title super">
+                            <span>⭐</span> Super Champion
+                        </div>
+                        <div class="club-metric">
+                            <div class="club-metric-label">CCP for Super Champion</div>
+                            <div class="club-metric-value">${getValue(emp, ['CCP for Super Champion & Abv', 'CCP Super Champion', 'CCP_Super'], 0)}</div>
+                        </div>
+                        <div class="club-metric">
+                            <div class="club-metric-label">SC Shortfall</div>
+                            <div class="club-metric-value shortfall">${getValue(emp, ['Super Champion & Abv Shortfall', 'SC Shortfall', 'SC_Shortfall'], 0)}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. HIGHEST SLAB QUALIFIED -->
+                <div class="slab-container">
+                    <div class="slab-label">
+                        <span>🏅</span> Highest Slab Qualified
+                    </div>
+                    <div class="slab-value">${getValue(emp, ['Highest Slab Qualified', 'Highest Slab', 'Slab'])}</div>
+                </div>
+
+                <!-- 5. FINAL REWARD -->
+                <div class="card card-brand">
+                    <div class="reward-container">
+                        <div>
+                            <div class="reward-label">Final Reward</div>
+                            <div class="reward-amount">₹${formatCurrency(getValue(emp, ['Final_Reward', 'Final Reward', 'Reward'], 0))}</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.15); width:48px; height:48px; border-radius:48px; display:flex; align-items:center; justify-content:center;">
+                            <span style="font-size:22px;">🏆</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. MONTHLY WRP/WCP DETAILS (Expandable) -->
+                <div class="card" style="padding:0; overflow:hidden;">
+                    <div class="month-section">
+                        <div class="month-header" onclick="toggleMonthSection(this)">
+                            <div class="month-header-left">
+                                <span>Monthly WRP & WCP Details</span>
+                                <span class="dropdown-icon">▼</span>
+                            </div>
+                            <div class="preview-values">
+                                ${latest.name}: ${latestWrp} / ${latestWcp}
+                            </div>
+                        </div>
+                        <div class="month-content">
+                            <div class="month-header-row">
+                                <span>Month</span>
+                                <div style="display:flex; gap:24px;">
+                                    <span>WRP</span>
+                                    <span>WCP</span>
+                                </div>
+                            </div>
+                            <div class="month-rows">
+                                ${months.map(m => {
+                                    const wrpVal = emp[m.wrpKey] || 0;
+                                    const wcpVal = emp[m.wcpKey] || 0;
+                                    return `
+                                        <div class="month-row">
+                                            <span class="month">${m.name}</span>
+                                            <div style="display:flex; gap:24px; align-items:center;">
+                                                <span class="wrp-value ${wrpVal === 0 ? 'zero-value' : ''}">${wrpVal}</span>
+                                                <span class="wcp-value ${wcpVal === 0 ? 'zero-value' : ''}">${wcpVal}</span>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-xs" style="text-align:center; padding:16px 0; color:#8f99a8;">
+                    Last updated: ${new Date().toLocaleString('en-IN')} · Enterprise v2.0
+                </div>
+            `;
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            sapInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    fetchData();
+                }
+            });
+            sapInput.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+    </script>
+</body>
+</html>
