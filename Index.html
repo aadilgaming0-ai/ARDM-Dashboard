@@ -4,22 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>ARDM · executive dashboard</title>
-    <!-- Premium Font Stack (Inter) -->
+    <!-- Inter font – premium, clean -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (clean, pro‑style icons) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ---------- DESIGN TOKENS – 8pt system, premium, corporate ---------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ----- DESIGN SYSTEM – refined spacing, readable font sizes, premium ----- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f5f7fc;   /* cool very light grey – premium background */
-            color: #1f2a41;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f6f9fe;   /* soft, corporate background */
+            color: #1a2639;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
@@ -30,47 +26,36 @@
             padding: 20px 16px 36px;
         }
 
-        /* typography – clean, generous */
-        .text-xs { font-size: 0.75rem; line-height: 1.25; letter-spacing: 0.02em; color: #637083; }
-        .text-sm { font-size: 0.875rem; line-height: 1.5; }
-        .text-base { font-size: 1rem; line-height: 1.5; }
-        .text-lg { font-size: 1.125rem; font-weight: 500; }
-        .text-xl { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
-        .text-2xl { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
-        .text-3xl { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+        /* ----- TYPOGRAPHY – balanced, not oversized ----- */
+        .text-xs  { font-size: 0.70rem; line-height: 1.4; color: #63738b; }
+        .text-sm  { font-size: 0.80rem; line-height: 1.5; }
+        .text-base{ font-size: 0.90rem; line-height: 1.5; }
+        .text-lg  { font-size: 1.00rem; font-weight: 500; }
+        .text-xl  { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+        .text-2xl { font-size: 1.40rem; font-weight: 700; letter-spacing: -0.01em; }
+        .text-3xl { font-size: 1.80rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
 
-        /* cards – ultra premium: larger radius, soft shadow, micro border */
+        /* cards – premium rounding, subtle border */
         .card {
             background: #ffffff;
-            border-radius: 32px;
-            padding: 24px 22px;
-            margin-bottom: 20px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
-            border: 1px solid #f0f4fe;
-            transition: all 0.2s ease;
+            border-radius: 28px;
+            padding: 22px 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.01);
+            border: 1px solid #edf2fc;
+            transition: all 0.15s ease;
         }
 
-        .card:active {
-            transform: scale(0.99);
-        }
-
-        /* subtle hover lift */
-        .card:hover {
-            box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.07);
-            border-color: #eaeef8;
-        }
-
-        /* section header with maroon line (brand) */
         .section-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 22px;
+            gap: 10px;
+            margin-bottom: 18px;
         }
         .section-header h2 {
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: #182235;
+            color: #1d2b40;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
@@ -78,35 +63,35 @@
             flex: 1;
             height: 2px;
             background: linear-gradient(90deg, #7b1e3a 0%, rgba(123, 30, 58, 0.1) 90%);
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
-        /* ----- header & search (luxury touch) ----- */
+        /* ----- HEADER & SEARCH (touch friendly) ----- */
         .page-header {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
         .page-header h1 {
-            font-size: 2rem;
+            font-size: 1.70rem;
             font-weight: 700;
             letter-spacing: -0.02em;
-            color: #0e1a2b;
-            margin-bottom: 24px;
+            color: #102031;
+            margin-bottom: 22px;
             display: flex;
             align-items: center;
             gap: 12px;
         }
         .page-header h1::before {
             content: '';
-            width: 6px;
-            height: 32px;
+            width: 5px;
+            height: 28px;
             background: #7b1e3a;
-            border-radius: 10px;
+            border-radius: 8px;
             display: inline-block;
         }
 
         .search-container {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             align-items: center;
             margin-bottom: 18px;
         }
@@ -116,313 +101,236 @@
         }
         .search-icon {
             position: absolute;
-            left: 20px;
+            left: 18px;
             top: 50%;
             transform: translateY(-50%);
             color: #7b1e3a;
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.7;
         }
         #sapInput {
             width: 100%;
-            padding: 20px 20px 20px 56px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            border: 1.5px solid #e8eef7;
-            border-radius: 44px;
-            background: #ffffff;
+            padding: 16px 16px 16px 48px;
+            font-size: 0.9rem;
+            border: 1.5px solid #e5ecf7;
+            border-radius: 40px;
+            background: white;
             transition: 0.2s;
         }
         #sapInput:focus {
-            outline: none;
             border-color: #7b1e3a;
-            box-shadow: 0 0 0 5px rgba(123, 30, 58, 0.1);
-        }
-        #sapInput::placeholder {
-            color: #b1c2d8;
-            font-weight: 400;
+            box-shadow: 0 0 0 4px rgba(123,30,58,0.08);
+            outline: none;
         }
 
         .btn-primary {
             background: #7b1e3a;
             color: white;
             border: none;
-            border-radius: 48px;
-            padding: 20px 32px;
+            border-radius: 40px;
+            padding: 16px 26px;
             font-weight: 600;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: 0.2s;
-            white-space: nowrap;
-            box-shadow: 0 15px 25px -10px rgba(123, 30, 58, 0.4);
+            box-shadow: 0 10px 18px -8px rgba(123,30,58,0.4);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            white-space: nowrap;
         }
-        .btn-primary i { font-size: 1rem; }
-        .btn-primary:active { background: #61152f; transform: scale(0.96); }
-        .btn-primary:disabled { opacity: 0.45; box-shadow: none; }
+        .btn-primary:active { background: #60152e; transform: scale(0.97); }
 
-        /* last updated – cleaner, more prominent */
+        /* last updated pill */
         .last-updated {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             background: #ffffff;
-            padding: 12px 24px 12px 20px;
+            padding: 10px 20px 10px 18px;
             border-radius: 60px;
-            border: 1px solid #e2ecfb;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e4ecfa;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
-        .last-updated-icon { color: #7b1e3a; font-size: 1rem; }
-        .last-updated-text { font-size: 0.85rem; color: #62748c; font-weight: 500; }
-        .last-updated-date { font-size: 0.85rem; font-weight: 700; background: #f2f7ff; padding: 6px 20px; border-radius: 50px; color: #1a293b; }
+        .last-updated-icon { color: #7b1e3a; font-size: 0.85rem; }
+        .last-updated-text { font-size: 0.75rem; color: #5f7392; font-weight: 500; }
+        .last-updated-date { font-size: 0.75rem; font-weight: 700; background: #f0f6ff; padding: 5px 16px; border-radius: 40px; }
 
         /* employee badge */
         .sap-badge {
             display: inline-flex;
             align-items: center;
-            background: #f1f6fd;
-            color: #1f2a41;
-            padding: 8px 22px;
+            background: #f0f6ff;
+            padding: 6px 18px;
             border-radius: 40px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 16px;
-            gap: 8px;
-            border: 1px solid #dee9f5;
+            margin-bottom: 12px;
+            gap: 6px;
         }
         .sap-badge i { color: #7b1e3a; }
         .employee-name {
-            font-size: 2.2rem;
+            font-size: 1.7rem;
             font-weight: 700;
-            color: #0f1d2f;
-            margin-bottom: 24px;
+            color: #0d1b2d;
+            margin-bottom: 18px;
             line-height: 1.2;
             letter-spacing: -0.02em;
         }
 
-        /* meta grid 2‑col */
+        /* meta grid */
         .meta-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 22px 16px;
-            padding-top: 18px;
+            grid-template-columns: repeat(2,1fr);
+            gap: 16px 12px;
+            padding-top: 16px;
             border-top: 1px solid #edf2fa;
         }
-        .meta-label { font-size: 0.75rem; color: #6f829e; margin-bottom: 6px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
-        .meta-value { font-weight: 600; font-size: 1.15rem; color: #12202f; }
+        .meta-label { font-size: 0.70rem; color: #6f829e; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+        .meta-value { font-weight: 600; font-size: 1rem; color: #102233; }
 
-        /* YTD cards (premium compact) */
+        /* YTD cards */
         .ytd-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 8px;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
         }
         .ytd-card {
             background: #fafdff;
-            border-radius: 28px;
-            padding: 18px 8px;
+            border-radius: 22px;
+            padding: 14px 6px;
             border: 1px solid #e8f0fa;
             text-align: center;
-            transition: 0.2s;
         }
-        .ytd-card:hover { background: #ffffff; border-color: #cddef0; }
-        .ytd-label { font-size: 0.7rem; color: #67809c; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
-        .ytd-value { font-size: 1.7rem; font-weight: 700; line-height: 1.2; }
+        .ytd-label { font-size: 0.65rem; color: #627b99; text-transform: uppercase; margin-bottom: 6px; }
+        .ytd-value { font-size: 1.3rem; font-weight: 700; line-height: 1.2; }
         .ytd-value.wrp { color: #7b1e3a; }
         .ytd-value.wcp { color: #176f6f; }
 
-        /* SHORTFALL – new icon (scale unbalanced) */
+        /* shortfall – icon updated */
         .shortfall-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
         }
-        .shortfall-header i {
-            font-size: 2rem;
-            color: #7b1e3a;
-            opacity: 0.9;
-        }
-        .shortfall-header h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #121f31;
-        }
-        .shortfall-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .shortfall-header i { font-size: 1.6rem; color: #7b1e3a; }
+        .shortfall-header h3 { font-size: 1.2rem; font-weight: 600; color: #142437; }
+        .shortfall-list { display: flex; flex-direction: column; gap: 8px; }
         .shortfall-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: #f9fcff;
-            border-radius: 26px;
-            padding: 18px 24px;
-            border: 1px solid #e5f0fa;
+            border-radius: 22px;
+            padding: 14px 20px;
+            border: 1px solid #e5effa;
         }
-        .shortfall-item-label {
-            font-weight: 600;
-            color: #1f3147;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 1rem;
-        }
-        .shortfall-item-label i { color: #7b1e3a; width: 22px; font-size: 1.2rem; }
-        .shortfall-item-value {
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: #bc3b3b;
-            background: rgba(188, 59, 59, 0.05);
-            padding: 4px 18px;
-            border-radius: 40px;
-        }
+        .shortfall-item-label { font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 12px; }
+        .shortfall-item-label i { color: #7b1e3a; width: 18px; }
+        .shortfall-item-value { font-weight: 700; font-size: 1.1rem; color: #bc3b3b; background: rgba(188,59,59,0.04); padding: 3px 14px; border-radius: 30px; }
 
         /* monthly KPI cards */
         .monthly-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 28px;
+            grid-template-columns: repeat(2,1fr);
+            gap: 12px;
+            margin-bottom: 20px;
         }
         .monthly-card {
             background: #f9fdff;
-            border-radius: 28px;
-            padding: 22px 14px;
+            border-radius: 24px;
+            padding: 16px 12px;
             border: 1px solid #e8f0fa;
         }
-        .monthly-label { font-size: 0.8rem; color: #617b99; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .monthly-label i { color: #7b1e3a; font-size: 1rem; }
-        .monthly-value { font-size: 2.2rem; font-weight: 700; line-height: 1.1; }
+        .monthly-label { font-size: 0.7rem; color: #5f7a9c; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .monthly-label i { color: #7b1e3a; font-size: 0.8rem; }
+        .monthly-value { font-size: 1.5rem; font-weight: 700; line-height: 1.1; }
 
-        /* DROPDOWN (only MoM view) – premium, clean, no decimals */
+        /* DROPDOWN (MoM) – clean, all months visible */
         .month-section {
-            border: 1px solid #eef4fd;
-            border-radius: 34px;
+            border: 1px solid #eaf1fc;
+            border-radius: 26px;
             background: white;
-            margin-top: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            margin-top: 10px;
         }
         .month-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 22px;
+            padding: 16px 18px;
             cursor: pointer;
-            background: #ffffff;
-            transition: 0.15s;
+            background: white;
         }
-        .month-header:hover { background: #fbfdff; }
-        .month-header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            color: #1d2c41;
-        }
-        .month-header-left i { color: #7b1e3a; font-size: 1.1rem; }
-        .dropdown-icon { color: #7b1e3a; transition: transform 0.3s ease; font-size: 0.9rem; }
+        .month-header-left { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; }
+        .month-header-left i { color: #7b1e3a; font-size: 0.8rem; }
+        .dropdown-icon { color: #7b1e3a; transition: transform 0.2s; font-size: 0.8rem; }
         .month-header.expanded .dropdown-icon { transform: rotate(180deg); }
         .preview-values {
             background: #f2f8ff;
-            padding: 8px 22px;
+            padding: 6px 16px;
             border-radius: 40px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: #1d334f;
         }
         .month-content {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transition: max-height 0.35s ease, opacity 0.25s ease;
-            background: #fafdff;
+            transition: 0.25s ease;
+            background: #fbfeff;
         }
         .month-content.expanded {
             max-height: 600px;
             opacity: 1;
-            padding: 8px 16px 22px;
+            padding: 6px 12px 18px;
         }
         .month-header-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 18px 6px;
+            padding: 10px 12px 4px;
             color: #627e9f;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
         }
-        .month-rows {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+        .month-rows { display: flex; flex-direction: column; gap: 5px; }
         .month-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #ffffff;
-            border-radius: 26px;
-            padding: 16px 22px;
-            border: 1px solid #eaf2fd;
-            font-size: 1rem;
+            background: white;
+            border-radius: 22px;
+            padding: 12px 18px;
+            border: 1px solid #ecf3fd;
+            font-size: 0.9rem;
         }
-        .month-row .month-name {
-            font-weight: 600;
-            color: #1f3147;
-            min-width: 60px;
-        }
-        .wrp-value {
-            font-weight: 700;
-            color: #7b1e3a;
-            min-width: 80px;
-            text-align: right;
-        }
-        .wcp-value {
-            font-weight: 700;
-            color: #176f6f;
-            min-width: 80px;
-            text-align: right;
-        }
-        .zero-value {
-            color: #b9cee8;
-            font-weight: 500;
-        }
+        .month-row .month-name { font-weight: 600; color: #1d314a; min-width: 45px; }
+        .wrp-value { font-weight: 700; color: #7b1e3a; min-width: 70px; text-align: right; }
+        .wcp-value { font-weight: 700; color: #176f6f; min-width: 70px; text-align: right; }
+        .zero-value { color: #b9cee8; font-weight: 500; }
 
-        /* footer */
         .footer-note {
             text-align: center;
-            color: #8d9fbb;
-            font-size: 0.7rem;
-            padding: 24px 0 8px;
+            color: #8b9fbd;
+            font-size: 0.65rem;
+            padding: 20px 0 8px;
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        /* loading / error (premium) */
-        .loading-skeleton { animation: shimmer 1.5s infinite; }
-        @keyframes shimmer { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
-        .error-card { background: #fff9f9; border-radius: 32px; padding: 44px 24px; text-align: center; border: 1px solid #ffdbdb; }
-
+        /* loading/error */
+        .error-card { background: #fff9f9; border-radius: 28px; padding: 36px 20px; text-align: center; border: 1px solid #ffdbdb; }
         @media (min-width: 640px) {
-            .dashboard { max-width: 800px; }
-            .meta-grid { grid-template-columns: repeat(4, 1fr); }
-            .monthly-grid { grid-template-columns: repeat(4, 1fr); }
+            .dashboard { max-width: 720px; }
+            .meta-grid { grid-template-columns: repeat(4,1fr); }
+            .monthly-grid { grid-template-columns: repeat(4,1fr); }
         }
     </style>
 </head>
 <body>
     <div class="dashboard">
-        <!-- header with search (ids untouched) -->
         <div class="page-header">
             <h1>ARDM Performance Report</h1>
             <div class="search-container">
@@ -436,109 +344,78 @@
             </div>
             <div class="last-updated" id="lastUpdatedContainer">
                 <i class="far fa-clock last-updated-icon"></i>
-                <span class="last-updated-text">Last updated</span>
+                <span class="last-updated-text">Last updated on</span>
                 <span class="last-updated-date" id="lastUpdatedDate">—</span>
             </div>
         </div>
 
-        <!-- dynamic content -->
         <div id="content">
-            <div class="card" style="text-align: center; padding: 52px 24px;">
-                <i class="fas fa-chart-pie" style="font-size: 56px; color: #7b1e3a; opacity: 0.3; margin-bottom: 16px;"></i>
-                <div style="font-size: 1.6rem; font-weight: 600; color: #1e2b3e; margin-bottom: 8px;">Executive dashboard</div>
-                <div class="text-xs" style="color: #778aa8;">Enter SAP ID to access real‑time data</div>
+            <div class="card" style="text-align: center; padding: 44px 20px;">
+                <i class="fas fa-chart-pie" style="font-size: 48px; color: #7b1e3a; opacity: 0.3; margin-bottom: 16px;"></i>
+                <div style="font-size: 1.3rem; font-weight: 600; color: #1e2b40;">Welcome</div>
+                <div class="text-xs" style="color: #7b8fae; margin-top: 8px;">Enter SAP ID to access data</div>
             </div>
         </div>
     </div>
 
     <script>
         (function() {
-            // ---------- CONSTANTS (unchanged) ----------
             const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzKXDilaOh8JJrTypyUGilXfezrah5Hd4QnEC6iM8tloMuQVIYODupBZV6H4DO9DKIIQg/exec";
             const searchBtn = document.getElementById('searchBtn');
             const sapInput = document.getElementById('sapInput');
             const lastUpdatedSpan = document.getElementById('lastUpdatedDate');
 
-            // ----- helper: integer only (no decimals) -----
+            // helpers
             function formatInt(value) {
                 const num = Number(value) || 0;
                 return Math.round(num).toLocaleString('en-IN');
             }
 
-            // format percent (0.87 → 87%)
             function formatPercent(value) {
-                if (value === '—' || value === undefined || value === null || value === '') return '—';
+                if (!value || value === '—') return '—';
                 const num = parseFloat(value);
                 if (isNaN(num)) return value;
                 if (num <= 1) return Math.round(num * 100) + '%';
                 return Math.round(num) + '%';
             }
 
-            // get value (unchanged)
-            function getValue(obj, possibleKeys, defaultValue = '—') {
-                if (!obj) return defaultValue;
-                for (let key of possibleKeys) {
-                    if (obj[key] !== undefined && obj[key] !== null && obj[key] !== '')
-                        return obj[key];
-                }
-                return defaultValue;
+            function getValue(obj, keys, fallback = '—') {
+                if (!obj) return fallback;
+                for (let k of keys) if (obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return obj[k];
+                return fallback;
             }
 
-            // calculate totals (keep for potential use but we won't display YTD total anymore)
             function calculateTotals(emp, months) {
-                let totalWRP = 0, totalWCP = 0;
-                months.forEach(m => {
-                    totalWRP += Number(emp[m.wrpKey]) || 0;
-                    totalWCP += Number(emp[m.wcpKey]) || 0;
-                });
-                return { totalWRP, totalWCP };
+                let wrp = 0, wcp = 0;
+                months.forEach(m => { wrp += Number(emp[m.wrpKey]) || 0; wcp += Number(emp[m.wcpKey]) || 0; });
+                return { totalWRP: wrp, totalWCP: wcp };
             }
 
-            // ----- fetch last updated from metadata (fixed) -----
-            async function fetchLastUpdatedDate() {
+            // fetch last updated from metadata (fallback)
+            async function fetchLastUpdatedMetadata() {
                 try {
-                    const response = await fetch(`${WEB_APP_URL}?type=metadata`);
-                    const data = await response.json();
-                    if (data && data.lastUpdated) {
-                        const date = new Date(data.lastUpdated);
+                    const r = await fetch(`${WEB_APP_URL}?type=metadata`);
+                    const d = await r.json();
+                    if (d && d.lastUpdated) {
+                        const date = new Date(d.lastUpdated);
                         if (!isNaN(date.getTime())) {
-                            lastUpdatedSpan.textContent = date.toLocaleString('en-IN', { 
-                                day: '2-digit', month: 'short', year: 'numeric',
-                                hour: '2-digit', minute: '2-digit', hour12: true 
-                            });
+                            lastUpdatedSpan.textContent = date.toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:true });
                         } else {
-                            lastUpdatedSpan.textContent = data.lastUpdated;
+                            lastUpdatedSpan.textContent = d.lastUpdated;
                         }
-                    } else {
-                        // fallback – try to get from any other property or keep previous
-                        lastUpdatedSpan.textContent = 'Just now';
                     }
-                } catch (e) {
-                    console.warn('metadata fetch failed, using sheet data later');
-                    lastUpdatedSpan.textContent = 'updating…'; 
-                }
+                } catch (e) { console.warn(e); }
             }
-            fetchLastUpdatedDate();
+            fetchLastUpdatedMetadata();
 
             function showLoading() {
-                document.getElementById("content").innerHTML = `
-                    <div class="loading-skeleton">
-                        <div class="card" style="padding:28px;"><div style="height:20px; background:#eef3fc; width:40%; border-radius:60px; margin-bottom:18px;"></div>
-                        <div style="height:16px; background:#eef3fc; width:90%; border-radius:60px; margin-bottom:12px;"></div>
-                        <div style="height:16px; background:#eef3fc; width:70%; border-radius:60px;"></div></div>
-                    </div>`;
+                document.getElementById("content").innerHTML = `<div class="card" style="padding:28px;"><div style="height:16px; background:#eef3fc; width:40%; border-radius:40px;"></div></div>`;
             }
 
             function showError(msg) {
-                document.getElementById("content").innerHTML = `
-                    <div class="error-card">
-                        <i class="fas fa-exclamation-triangle" style="font-size:48px; color:#b13e3e; margin-bottom:16px;"></i>
-                        <div style="font-weight:600; color:#b13e3e; font-size:1.2rem;">Error</div>
-                        <div style="color:#64748b;">${msg || 'Unable to load data'}</div>
-                    </div>`;
+                document.getElementById("content").innerHTML = `<div class="error-card"><i class="fas fa-exclamation-triangle" style="font-size:36px; color:#b13e3e;"></i><div style="margin-top:12px;">${msg}</div></div>`;
             }
 
-            // dropdown toggle (global)
             window.toggleMonthSection = function(header) {
                 const section = header.closest('.month-section');
                 const content = section.querySelector('.month-content');
@@ -546,15 +423,14 @@
                 content.classList.toggle('expanded');
             };
 
-            // main fetch
             function fetchData() {
                 const sap = sapInput.value.trim();
-                if (!sap) { showError('Please enter SAP ID'); sapInput.focus(); return; }
+                if (!sap) { showError('Enter SAP ID'); sapInput.focus(); return; }
                 searchBtn.disabled = true;
                 showLoading();
 
                 fetch(`${WEB_APP_URL}?sap=${encodeURIComponent(sap)}`)
-                    .then(r => r.ok ? r.json() : Promise.reject('HTTP error'))
+                    .then(r => r.ok ? r.json() : Promise.reject())
                     .then(data => {
                         if (data.error) showError(data.error);
                         else renderDashboard(data);
@@ -564,7 +440,7 @@
             }
 
             function renderDashboard(emp) {
-                // month definitions
+                // all months including Jan, Feb, Mar
                 const months = [
                     { wrpKey: "WRP_4", wcpKey: "CCP_4", name: "Apr" },
                     { wrpKey: "WRP_5", wcpKey: "CCP_5", name: "May" },
@@ -580,89 +456,90 @@
                     { wrpKey: "WRP_3", wcpKey: "CCP_3", name: "Mar" }
                 ];
 
-                const latest = months[months.length-1];
+                // Ensure we extract Jan/Feb/Mar correctly – keys are exactly as in sheet
+                const latest = months[months.length-1]; // Mar
                 const latestWrp = Number(emp[latest.wrpKey]) || 0;
                 const latestWcp = Number(emp[latest.wcpKey]) || 0;
-                // totals not displayed, but we use them for nothing now
-                const rawPersistency = getValue(emp, ['YTD Persistency', 'Persistencey', 'PERSISTENCY'], '—');
-                const formattedPersistency = rawPersistency !== '—' ? formatPercent(rawPersistency) : '—';
+                const totals = calculateTotals(emp, months);
 
-                // last updated: if sheet sends "Last updated on" field, use it
-                const sheetLastUpdated = getValue(emp, ['Last updated on', 'Last Updated On', 'last updated on'], null);
-                if (sheetLastUpdated && sheetLastUpdated !== '—') {
-                    const d = new Date(sheetLastUpdated);
+                // Persistency as %
+                const rawPer = getValue(emp, ['YTD Persistency', 'Persistencey', 'PERSISTENCY'], '—');
+                const persistency = formatPercent(rawPer);
+
+                // LAST UPDATED: extract from employee data using possible header names
+                const sheetLast = getValue(emp, ['Last updated on', 'Last Updated On', 'last updated on'], null);
+                if (sheetLast && sheetLast !== '—') {
+                    const d = new Date(sheetLast);
                     if (!isNaN(d.getTime())) {
                         lastUpdatedSpan.textContent = d.toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:true });
                     } else {
-                        lastUpdatedSpan.textContent = sheetLastUpdated;
+                        lastUpdatedSpan.textContent = sheetLast;
                     }
                 } else {
-                    // keep existing (from metadata fetch) or set fallback
-                    if (lastUpdatedSpan.textContent === '—' || lastUpdatedSpan.textContent === 'updating…')
-                        lastUpdatedSpan.textContent = 'today';
+                    // fallback to metadata fetch (already attempted, but keep as is)
+                    if (lastUpdatedSpan.textContent === '—') lastUpdatedSpan.textContent = 'today';
                 }
 
-                // build month rows (for dropdown) – with integer formatting
+                // Month rows (all 12 months)
                 const monthRowsHtml = months.map(m => {
                     const wrpVal = Number(emp[m.wrpKey]) || 0;
                     const wcpVal = Number(emp[m.wcpKey]) || 0;
                     return `<div class="month-row">
                         <span class="month-name">${m.name}</span>
-                        <div style="display:flex; gap:24px;">
+                        <div style="display:flex; gap:16px;">
                             <span class="wrp-value ${wrpVal === 0 ? 'zero-value' : ''}">${formatInt(wrpVal)}</span>
                             <span class="wcp-value ${wcpVal === 0 ? 'zero-value' : ''}">${formatInt(wcpVal)}</span>
                         </div>
                     </div>`;
                 }).join('');
 
-                // ---- FINAL HTML (YTD total removed, only one dropdown, new shortfall icon) ----
                 const html = `
                     <!-- employee card -->
                     <div class="card">
-                        <div class="sap-badge"><i class="fas fa-id-card"></i> SAP · ${getValue(emp, ['SAP', 'sap', 'SAP Code', 'SAP_ID', 'SAP ID'])}</div>
-                        <div class="employee-name">${getValue(emp, ['Name of the ARDM', 'name', 'Employee Name', 'ARDM Name', 'ARDM'])}</div>
+                        <div class="sap-badge"><i class="fas fa-id-card"></i> SAP · ${getValue(emp, ['SAP','sap','SAP ID'])}</div>
+                        <div class="employee-name">${getValue(emp, ['Name of the ARDM','ARDM Name','ARDM','name'])}</div>
                         <div class="meta-grid">
-                            <div><div class="meta-label"><i class="fas fa-code-branch" style="color:#7b1e3a;"></i> Branch</div><div class="meta-value">${getValue(emp, ['Salesunit Name', 'branch', 'Sales Unit', 'BRANCH'])}</div></div>
-                            <div><div class="meta-label"><i class="fas fa-map-marker-alt" style="color:#7b1e3a;"></i> Region</div><div class="meta-value">${getValue(emp, ['Region', 'region', 'REGION'])}</div></div>
-                            <div><div class="meta-label"><i class="fas fa-tag" style="color:#7b1e3a;"></i> Channel</div><div class="meta-value">${getValue(emp, ['Channel Name', 'channel', 'Channel'])}</div></div>
+                            <div><div class="meta-label"><i class="fas fa-code-branch"></i> Branch</div><div class="meta-value">${getValue(emp, ['Salesunit Name','branch','BRANCH'])}</div></div>
+                            <div><div class="meta-label"><i class="fas fa-map-marker-alt"></i> Region</div><div class="meta-value">${getValue(emp, ['Region','region'])}</div></div>
+                            <div><div class="meta-label"><i class="fas fa-tag"></i> Channel</div><div class="meta-value">${getValue(emp, ['Channel Name','channel'])}</div></div>
                         </div>
                     </div>
 
-                    <!-- YTD with persistency as percent -->
+                    <!-- YTD summary -->
                     <div class="card">
-                        <div class="section-header"><h2><i class="far fa-calendar-alt" style="margin-right:6px; color:#7b1e3a;"></i> YTD summary</h2><div class="accent-line"></div></div>
+                        <div class="section-header"><h2><i class="far fa-calendar-alt"></i> YTD summary</h2><div class="accent-line"></div></div>
                         <div class="ytd-grid">
-                            <div class="ytd-card"><div class="ytd-label">WRP</div><div class="ytd-value wrp">${formatInt(calculateTotals(emp, months).totalWRP)}</div></div>
-                            <div class="ytd-card"><div class="ytd-label">WCP/CCP</div><div class="ytd-value wcp">${formatInt(calculateTotals(emp, months).totalWCP)}</div></div>
-                            <div class="ytd-card"><div class="ytd-label">Persistency</div><div class="ytd-value" style="font-size:1.7rem;">${formattedPersistency}</div></div>
+                            <div class="ytd-card"><div class="ytd-label">WRP</div><div class="ytd-value wrp">${formatInt(totals.totalWRP)}</div></div>
+                            <div class="ytd-card"><div class="ytd-label">WCP</div><div class="ytd-value wcp">${formatInt(totals.totalWCP)}</div></div>
+                            <div class="ytd-card"><div class="ytd-label">Persistency</div><div class="ytd-value" style="font-size:1.3rem;">${persistency}</div></div>
                         </div>
                     </div>
 
-                    <!-- SHORTFALL – with new icon (scale unbalanced) -->
+                    <!-- SHORTFALL with new icon -->
                     <div class="card">
                         <div class="shortfall-header">
-                            <i class="fas fa-scale-unbalanced"></i>    <!-- different icon as requested -->
+                            <i class="fas fa-scale-unbalanced"></i>
                             <h3>Shortfall</h3>
                         </div>
                         <div class="shortfall-list">
-                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-trophy"></i> Champion Club</span><span class="shortfall-item-value">${formatInt(getValue(emp, ['Champion Club Shortfall', 'CC Shortfall', 'CC_Shortfall'], 0))}</span></div>
-                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-star"></i> Super Champion</span><span class="shortfall-item-value">${formatInt(getValue(emp, ['Super Champion & Abv Shortfall', 'SC Shortfall', 'SC_Shortfall'], 0))}</span></div>
-                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-coins"></i> Millionaire</span><span class="shortfall-item-value">${formatInt(getValue(emp, ['Millionaire Shortfall', 'M Shortfall'], 0))}</span></div>
-                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-gem"></i> Multi‑Millionaire</span><span class="shortfall-item-value">${formatInt(getValue(emp, ['Multi Millionaire Shortfall', 'MM Shortfall'], 0))}</span></div>
+                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-trophy"></i> Champion Club</span><span class="shortfall-item-value">${formatInt(getValue(emp, ['Champion Club Shortfall','CC Shortfall'],0))}</span></div>
+                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-star"></i> Super Champion</span><span class="shortfall-item-value">${formatInt(getValue(emp, ['Super Champion & Abv Shortfall','SC Shortfall'],0))}</span></div>
+                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-coins"></i> Millionaire</span><span class="shortfall-item-value">${formatInt(getValue(emp, ['Millionaire Shortfall','M Shortfall'],0))}</span></div>
+                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-gem"></i> Multi‑Millionaire</span><span class="shortfall-item-value">${formatInt(getValue(emp, ['Multi Millionaire Shortfall','MM Shortfall'],0))}</span></div>
                         </div>
                     </div>
 
-                    <!-- monthly KPI cards -->
+                    <!-- monthly KPIs + MoM dropdown (all months visible) -->
                     <div class="card">
-                        <div class="section-header"><h2><i class="fas fa-chart-line" style="margin-right:6px; color:#7b1e3a;"></i> Monthly KPIs</h2><div class="accent-line"></div></div>
+                        <div class="section-header"><h2><i class="fas fa-chart-line"></i> Monthly KPIs</h2><div class="accent-line"></div></div>
                         <div class="monthly-grid">
                             <div class="monthly-card"><div class="monthly-label"><i class="fas fa-user-plus"></i> L1 Recruited</div><div class="monthly-value">${formatInt(getValue(emp, ['L1_Recruited','L1 Recruited'],0))}</div></div>
                             <div class="monthly-card"><div class="monthly-label"><i class="fas fa-user-check"></i> Active L1</div><div class="monthly-value">${formatInt(getValue(emp, ['L1_Active','L1 Active'],0))}</div></div>
                             <div class="monthly-card"><div class="monthly-label"><i class="fas fa-file-invoice"></i> NOP</div><div class="monthly-value">${formatInt(getValue(emp, ['NOP','Nop'],0))}</div></div>
-                            <div class="monthly-card"><div class="monthly-label"><i class="fas fa-bolt"></i> MTD WCP</div><div class="monthly-value">${formatInt(getValue(emp, ['MTD_WCP','MTD WCP','MTD'],0))}</div></div>
+                            <div class="monthly-card"><div class="monthly-label"><i class="fas fa-bolt"></i> MTD WCP</div><div class="monthly-value">${formatInt(getValue(emp, ['MTD_WCP','MTD WCP'],0))}</div></div>
                         </div>
 
-                        <!-- ONLY DROPDOWN for MoM (WRP & WCP) - YTD total removed, decimals removed -->
+                        <!-- MoM dropdown (single) -->
                         <div class="month-section">
                             <div class="month-header" onclick="toggleMonthSection(this)">
                                 <div class="month-header-left">
@@ -674,7 +551,7 @@
                             <div class="month-content">
                                 <div class="month-header-row">
                                     <span>Month</span>
-                                    <div style="display:flex; gap:24px;"><span>WRP</span><span>WCP</span></div>
+                                    <div style="display:flex; gap:16px;"><span>WRP</span><span>WCP</span></div>
                                 </div>
                                 <div class="month-rows">
                                     ${monthRowsHtml}
@@ -685,13 +562,12 @@
 
                     <div class="footer-note">
                         <i class="far fa-calendar-check"></i> refreshed: ${lastUpdatedSpan.textContent}
-                        <i class="fas fa-shield"></i>
+                        <i class="fas fa-chart-simple"></i>
                     </div>
                 `;
                 document.getElementById("content").innerHTML = html;
             }
 
-            // expose fetch and bind events
             sapInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchData(); });
             sapInput.addEventListener('input', function() { this.value = this.value.replace(/[^0-9]/g, ''); });
             window.fetchData = fetchData;
