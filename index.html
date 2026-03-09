@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>ARDM Performance Report</title>
+    <title>ARDM · performance suite</title>
     <!-- Premium Font Stack -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- Add Font Awesome for better icons -->
+    <!-- Font Awesome 6 (clean icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* All your existing styles remain exactly the same */
+        /* ----- RESET / SYSTEM TOKENS (mobile-first 8pt grid) ----- */
         * {
             margin: 0;
             padding: 0;
@@ -18,741 +18,460 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f5f7fb;
-            color: #1a1e24;
+            background: #f4f6fa;   /* very light grey – corporate */
+            color: #1e293b;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* 8‑pt spacing system + comfortable tap targets */
         .dashboard {
             max-width: 480px;
             margin: 0 auto;
-            padding: 16px 16px 32px;
+            padding: 20px 16px 32px;
         }
 
-        .text-xs {
-            font-size: 12px;
-            line-height: 16px;
-            letter-spacing: 0.01em;
-            color: #5e6873;
-        }
+        /* ----- TYPOGRAPHY SCALE (premium, clean) ----- */
+        .text-xs { font-size: 0.75rem; line-height: 1.25; letter-spacing: 0.02em; color: #5e6873; }
+        .text-sm { font-size: 0.875rem; line-height: 1.5; }
+        .text-base { font-size: 1rem; line-height: 1.5; }
+        .text-lg { font-size: 1.125rem; font-weight: 500; }
+        .text-xl { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+        .text-2xl { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; }
+        .text-3xl { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
 
-        .text-sm {
-            font-size: 14px;
-            line-height: 20px;
-        }
-
-        .text-base {
-            font-size: 16px;
-            line-height: 24px;
-        }
-
-        .text-lg {
-            font-size: 18px;
-            line-height: 28px;
-            font-weight: 500;
-        }
-
-        .text-xl {
-            font-size: 20px;
-            line-height: 28px;
-            font-weight: 600;
-        }
-
-        .text-2xl {
-            font-size: 24px;
-            line-height: 32px;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-
+        /* ----- CARDS – soft, rounded, premium shadows ----- */
         .card {
             background: #ffffff;
-            border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
-            border: 1px solid #edf0f3;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 28px;
+            padding: 24px 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f0f3f7;
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
         }
 
-        .card:hover {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        .card:active {
+            transform: scale(0.99);
         }
 
         .card-brand {
-            background: linear-gradient(135deg, #7b1e3a 0%, #9c2a4a 100%);
+            background: #7b1e3a;
             color: white;
             border: none;
-            box-shadow: 0 8px 20px rgba(123, 30, 58, 0.2);
+            box-shadow: 0 16px 28px -8px rgba(123, 30, 58, 0.3);
         }
 
+        /* header with maroon accent line */
         .section-header {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
-
         .section-header h2 {
-            font-size: 16px;
+            font-size: 0.95rem;
             font-weight: 600;
             color: #1e293b;
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
-
         .section-header .accent-line {
             flex: 1;
             height: 2px;
-            background: linear-gradient(90deg, #7b1e3a 0%, rgba(123, 30, 58, 0.1) 100%);
+            background: linear-gradient(90deg, #7b1e3a 0%, rgba(123, 30, 58, 0.1) 90%);
             border-radius: 2px;
         }
 
+        /* ----- PAGE HEADER & SEARCH (touch friendly) ----- */
         .page-header {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
-
         .page-header h1 {
-            font-size: 24px;
+            font-size: 1.8rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: #0f172a;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
-
         .page-header h1::before {
             content: '';
-            width: 4px;
-            height: 24px;
+            width: 5px;
+            height: 28px;
             background: #7b1e3a;
-            border-radius: 4px;
+            border-radius: 8px;
             display: inline-block;
         }
 
         .search-container {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
-
         .search-input-wrapper {
             flex: 1;
             position: relative;
         }
-
         .search-icon {
             position: absolute;
-            left: 16px;
+            left: 18px;
             top: 50%;
             transform: translateY(-50%);
             color: #7b1e3a;
-            font-size: 14px;
-            opacity: 0.6;
+            font-size: 1rem;
+            opacity: 0.7;
         }
-
         #sapInput {
             width: 100%;
-            padding: 16px 16px 16px 48px;
-            font-size: 15px;
+            padding: 18px 18px 18px 52px;
+            font-size: 1rem;
             font-family: 'Inter', sans-serif;
-            border: 1.5px solid #e2e7ed;
-            border-radius: 20px;
+            border: 1.5px solid #e6edf4;
+            border-radius: 34px;
             background: #ffffff;
-            transition: all 0.2s ease;
+            transition: 0.2s;
         }
-
         #sapInput:focus {
             outline: none;
             border-color: #7b1e3a;
-            box-shadow: 0 0 0 4px rgba(123, 30, 58, 0.08);
+            box-shadow: 0 0 0 4px rgba(123, 30, 58, 0.12);
         }
-
         #sapInput::placeholder {
-            color: #94a3b8;
+            color: #a6b7cc;
             font-weight: 400;
         }
-
         .btn-primary {
             background: #7b1e3a;
             color: white;
             border: none;
-            border-radius: 20px;
-            padding: 16px 24px;
+            border-radius: 40px;
+            padding: 18px 28px;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 1rem;
             font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
             white-space: nowrap;
-            letter-spacing: 0.3px;
-            box-shadow: 0 4px 10px rgba(123, 30, 58, 0.2);
+            box-shadow: 0 8px 18px -6px rgba(123, 30, 58, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .btn-primary i { font-size: 1rem; }
+        .btn-primary:active { background: #5e142b; transform: scale(0.96); }
+        .btn-primary:disabled { opacity: 0.5; box-shadow: none; }
 
-        .btn-primary:hover {
-            background: #64162f;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 15px rgba(123, 30, 58, 0.25);
-        }
-
-        .btn-primary:active {
-            background: #4e1025;
-            transform: translateY(0);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
+        /* last updated pill */
         .last-updated {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
+            gap: 12px;
             background: #ffffff;
-            border-radius: 40px;
-            margin-bottom: 16px;
-            border: 1px solid #e2e7ed;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            padding: 10px 20px 10px 16px;
+            border-radius: 60px;
+            border: 1px solid #e6edf4;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
+        .last-updated-icon { color: #7b1e3a; font-size: 0.9rem; }
+        .last-updated-text { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+        .last-updated-date { font-size: 0.8rem; font-weight: 700; background: #f1f5f9; padding: 5px 16px; border-radius: 40px; }
 
-        .last-updated-icon {
-            color: #7b1e3a;
-            font-size: 14px;
-        }
-
-        .last-updated-text {
-            font-size: 12px;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        .last-updated-date {
-            font-size: 12px;
-            color: #1e293b;
-            font-weight: 600;
-            background: #f1f5f9;
-            padding: 4px 12px;
-            border-radius: 30px;
-        }
-
-        .loading-skeleton {
-            animation: shimmer 1.5s ease infinite;
-        }
-
-        @keyframes shimmer {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        .loading-card {
-            background: white;
-            border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-
-        .loading-line {
-            height: 14px;
-            background: linear-gradient(90deg, #eef2f6 0%, #f8fafc 50%, #eef2f6 100%);
-            background-size: 200% 100%;
-            animation: loading 1.5s ease infinite;
-            border-radius: 20px;
-            margin-bottom: 12px;
-        }
-
-        @keyframes loading {
-            0% { background-position: 100% 0; }
-            100% { background-position: -100% 0; }
-        }
-
-        .loading-line.short { width: 40%; }
-        .loading-line.medium { width: 70%; }
-        .loading-line.long { width: 90%; }
-
-        .error-card {
-            background: #fff8f8;
-            border: 1px solid #ffdbdb;
-            border-radius: 24px;
-            padding: 32px 24px;
-            text-align: center;
-        }
-
-        .error-card i {
-            font-size: 48px;
-            color: #b91c1c;
-            margin-bottom: 16px;
-        }
-
+        /* employee badge + name */
         .sap-badge {
             display: inline-flex;
             align-items: center;
             background: #f1f5f9;
-            color: #475569;
-            padding: 6px 16px;
+            color: #1e293b;
+            padding: 8px 20px;
             border-radius: 40px;
-            font-size: 13px;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 12px;
-            gap: 6px;
+            margin-bottom: 14px;
+            gap: 8px;
         }
-
-        .sap-badge i {
-            color: #7b1e3a;
-            font-size: 12px;
-        }
-
+        .sap-badge i { color: #7b1e3a; }
         .employee-name {
-            font-size: 26px;
+            font-size: 2rem;
             font-weight: 700;
             color: #0f172a;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            line-height: 1.2;
             letter-spacing: -0.02em;
-            word-break: break-word;
-            line-height: 1.3;
         }
 
+        /* meta grid 2-col then 4 on tablet */
         .meta-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            gap: 20px 16px;
             padding-top: 16px;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #ecf1f7;
         }
+        .meta-label { font-size: 0.75rem; color: #6a788b; margin-bottom: 6px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+        .meta-value { font-weight: 600; font-size: 1.1rem; color: #0f172a; word-break: break-word; }
 
-        .meta-item {
-            min-width: 0;
-        }
-
-        .meta-label {
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
-
-        .meta-value {
-            font-weight: 600;
-            color: #1e293b;
-            font-size: 16px;
-            word-break: break-word;
-        }
-
+        /* YTD cards */
         .ytd-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
             margin-top: 8px;
         }
-
         .ytd-card {
-            background: #f8fafc;
-            border-radius: 18px;
-            padding: 16px 8px;
-            border: 1px solid #e2e8f0;
+            background: #fafcff;
+            border-radius: 24px;
+            padding: 18px 6px;
+            border: 1px solid #ecf1f7;
             text-align: center;
-            transition: all 0.2s ease;
+            transition: 0.15s;
         }
+        .ytd-card:hover { background: #ffffff; border-color: #cdddec; }
+        .ytd-label { font-size: 0.7rem; color: #617388; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 8px; }
+        .ytd-value { font-size: 1.6rem; font-weight: 700; line-height: 1.2; }
+        .ytd-value.wrp { color: #7b1e3a; }
+        .ytd-value.wcp { color: #0b5e5e; }
 
-        .ytd-card:hover {
-            background: #ffffff;
-            border-color: #cbd5e1;
-        }
-
-        .ytd-label {
-            font-size: 11px;
-            color: #64748b;
-            margin-bottom: 8px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        .ytd-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1e293b;
-        }
-
-        .ytd-value.wrp {
-            color: #7b1e3a;
-        }
-
-        .ytd-value.wcp {
-            color: #0f5c5c;
-        }
-
-        .ccp-container {
-            margin-top: 4px;
-        }
-
-        .ccp-header {
+        /* SHORTFALL section (replaces "CCP for Champion Club") */
+        .shortfall-header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #e2e8f0;
+            gap: 12px;
+            margin-bottom: 22px;
         }
-
-        .ccp-title {
-            font-size: 16px;
+        .shortfall-header h3 {
+            font-size: 1.3rem;
             font-weight: 600;
+            color: #0f172a;
+        }
+        .shortfall-header i {
+            font-size: 1.8rem;
             color: #7b1e3a;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            opacity: 0.9;
         }
-
-        .ccp-title i {
-            font-size: 20px;
-        }
-
-        .ccp-main-value {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1e293b;
-            background: #f1f5f9;
-            padding: 6px 20px;
-            border-radius: 40px;
-            border: 1px solid #e2e8f0;
-        }
-
         .shortfall-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
-
         .shortfall-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #f8fafc;
-            border-radius: 16px;
-            padding: 14px 18px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.2s ease;
+            background: #f8fbfe;
+            border-radius: 20px;
+            padding: 16px 20px;
+            border: 1px solid #e6edf6;
         }
-
-        .shortfall-item:hover {
-            background: #ffffff;
-            border-color: #cbd5e1;
-            transform: translateX(2px);
-        }
-
         .shortfall-item-label {
-            font-size: 14px;
-            color: #334155;
+            font-weight: 600;
+            color: #1e2b3c;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 500;
+            gap: 12px;
+            font-size: 1rem;
         }
-
-        .shortfall-item-label i {
-            font-size: 16px;
-            color: #7b1e3a;
-            opacity: 0.8;
-        }
-
+        .shortfall-item-label i { color: #7b1e3a; width: 20px; font-size: 1.1rem; }
         .shortfall-item-value {
-            font-size: 18px;
             font-weight: 700;
-            color: #b45353;
-            background: rgba(180, 83, 83, 0.05);
-            padding: 4px 12px;
-            border-radius: 30px;
+            font-size: 1.3rem;
+            color: #b13e3e;
+            background: rgba(177, 62, 62, 0.05);
+            padding: 4px 16px;
+            border-radius: 40px;
         }
 
+        /* monthly kpi cards (L1, NOP, MTD) */
         .monthly-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        .monthly-card {
+            background: #f9fcff;
+            border-radius: 22px;
+            padding: 20px 14px;
+            border: 1px solid #e6edf6;
+        }
+        .monthly-label { font-size: 0.8rem; color: #5c6f87; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .monthly-label i { color: #7b1e3a; }
+        .monthly-value { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+
+        /* MOM overview – completely redesigned (horizontal cards + mar top line) */
+        .mom-section {
+            margin-top: 12px;
+        }
+        .mom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
             margin-bottom: 16px;
         }
-
-        .monthly-card {
-            background: #f8fafc;
-            border-radius: 18px;
-            padding: 16px 14px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.2s ease;
-        }
-
-        .monthly-card:hover {
-            background: #ffffff;
-            border-color: #cbd5e1;
-        }
-
-        .monthly-label {
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 10px;
+        .mom-header h4 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #0f172a;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+        }
+        .mom-header h4 i { color: #7b1e3a; font-size: 1rem; }
+        .latest-mom-preview {
+            background: #f1f5f9;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e2b3c;
+            white-space: nowrap;
+        }
+        .latest-mom-preview span { color: #7b1e3a; margin: 0 4px; }
+
+        /* horizontal scrollable month cards */
+        .month-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 4px 2px 12px 2px;
+            scrollbar-width: thin;
+            scrollbar-color: #7b1e3a #e2eaf2;
+            -webkit-overflow-scrolling: touch;
+        }
+        .month-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+        .month-scroll::-webkit-scrollbar-track {
+            background: #e2eaf2;
+            border-radius: 8px;
+        }
+        .month-scroll::-webkit-scrollbar-thumb {
+            background: #7b1e3a;
+            border-radius: 8px;
+        }
+
+        .month-tile {
+            flex: 0 0 auto;
+            width: 110px;
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 16px 10px;
+            border: 1px solid #eef3f9;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            text-align: center;
+        }
+        .month-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+        .month-wrp {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #7b1e3a;
+            line-height: 1.4;
+        }
+        .month-wcp {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f5c5c;
+            line-height: 1.4;
+        }
+        .month-tile .zero-value {
+            color: #b6c8dd;
             font-weight: 500;
         }
-
-        .monthly-label i {
-            color: #7b1e3a;
-            font-size: 14px;
+        .month-divider {
+            font-size: 0.7rem;
+            color: #9aabbf;
+            margin: 4px 0;
         }
 
-        .monthly-value {
-            font-size: 22px;
-            font-weight: 700;
+        /* total ytd row (simplified, clean) */
+        .total-ytd-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f1f6fc;
+            padding: 16px 20px;
+            border-radius: 50px;
+            margin-top: 16px;
+            border: 1px solid #dee9f2;
+        }
+        .total-ytd-label {
+            font-weight: 600;
             color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .total-ytd-numbers {
+            display: flex;
+            gap: 24px;
+            font-weight: 700;
+        }
+        .total-wrp { color: #7b1e3a; min-width: 70px; text-align: right; }
+        .total-wcp { color: #0f5c5c; min-width: 70px; text-align: right; }
 
+        /* expandable section (keep original but we style it minimal) */
         .month-section {
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            overflow: hidden;
+            border: 1px solid #e6edf6;
+            border-radius: 28px;
             background: white;
-            transition: all 0.2s ease;
+            margin-top: 12px;
         }
-
-        .month-section:hover {
-            border-color: #cbd5e1;
-        }
-
         .month-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 16px;
-            background: white;
+            padding: 18px 20px;
             cursor: pointer;
-            border-bottom: 1px solid transparent;
-            transition: all 0.2s ease;
         }
-
-        .month-header:hover {
-            background: #f8fafc;
-        }
-
-        .month-header.expanded {
-            border-bottom-color: #e2e8f0;
-            background: #f8fafc;
-        }
-
-        .month-header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .month-header-left i {
-            color: #7b1e3a;
-            font-size: 14px;
-            transition: transform 0.3s ease;
-        }
-
-        .month-header-left span {
-            font-weight: 600;
-            color: #1e293b;
-            font-size: 15px;
-        }
-
-        .dropdown-icon {
-            font-size: 12px;
-            color: #7b1e3a;
-            transition: transform 0.3s ease;
-        }
-
-        .month-header.expanded .dropdown-icon {
-            transform: rotate(180deg);
-        }
-
-        .preview-values {
-            font-size: 13px;
-            color: #475569;
-            background: #f1f5f9;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-weight: 500;
-        }
-
+        .month-header-left i { color: #7b1e3a; margin-right: 8px; }
+        .dropdown-icon { color: #7b1e3a; transition: transform 0.2s; }
+        .month-header.expanded .dropdown-icon { transform: rotate(180deg); }
         .month-content {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transition: all 0.3s ease;
-            background: #fafbfc;
+            transition: 0.25s ease;
+            background: #fbfdff;
         }
-
         .month-content.expanded {
             max-height: 600px;
             opacity: 1;
-            padding: 12px 8px 16px;
-        }
-
-        .month-rows {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 0 8px;
-        }
-
-        .month-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: white;
-            padding: 14px 16px;
-            border-radius: 16px;
-            border: 1px solid #edf2f8;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-
-        .month-row:hover {
-            background: #ffffff;
-            border-color: #cbd5e1;
-            transform: scale(1.01);
-        }
-
-        .month-row .month {
-            font-weight: 600;
-            color: #334155;
-            min-width: 50px;
-        }
-
-        .month-row .wrp-value {
-            font-weight: 700;
-            color: #7b1e3a;
-            min-width: 70px;
-            text-align: right;
-        }
-
-        .month-row .wcp-value {
-            font-weight: 700;
-            color: #0f5c5c;
-            min-width: 70px;
-            text-align: right;
-        }
-
-        .month-row .zero-value {
-            color: #94a3b8;
-            font-weight: 400;
-        }
-
-        .month-header-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 16px 6px;
-            font-size: 12px;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            font-weight: 600;
-        }
-
-        .total-row {
-            margin-top: 12px;
-            padding: 16px 16px;
-            background: #f1f5f9;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 700;
-            border: 1px dashed #94a3b8;
-        }
-
-        .total-label {
-            font-size: 14px;
-            color: #334155;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .total-label i {
-            color: #7b1e3a;
-        }
-
-        .total-values {
-            display: flex;
-            gap: 24px;
-        }
-
-        .total-wrp {
-            color: #7b1e3a;
-            min-width: 70px;
-            text-align: right;
-        }
-
-        .total-wcp {
-            color: #0f5c5c;
-            min-width: 70px;
-            text-align: right;
+            padding: 8px 16px 18px;
         }
 
         .footer-note {
             text-align: center;
+            color: #97a9c2;
+            font-size: 0.7rem;
             padding: 20px 0 8px;
-            color: #94a3b8;
-            font-size: 11px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .footer-note i {
-            color: #7b1e3a;
-            opacity: 0.5;
-        }
+        /* loading / error states unchanged (just skeleton) */
+        .loading-skeleton { animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+        .error-card { background: #fff4f4; border-radius: 28px; padding: 40px 24px; text-align: center; border: 1px solid #fad7d7; }
 
         @media (min-width: 640px) {
-            .dashboard {
-                max-width: 700px;
-            }
-            .meta-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .monthly-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card {
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #7b1e3a;
-            border-radius: 4px;
+            .dashboard { max-width: 800px; }
+            .meta-grid { grid-template-columns: repeat(4, 1fr); }
+            .monthly-grid { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
 <body>
     <div class="dashboard">
-        <!-- Header with search -->
+        <!-- header with search (exactly same ids) -->
         <div class="page-header">
             <h1>ARDM Performance Report</h1>
             <div class="search-container">
@@ -761,11 +480,9 @@
                     <input type="text" id="sapInput" placeholder="Enter SAP ID" autocomplete="off">
                 </div>
                 <button class="btn-primary" onclick="fetchData()" id="searchBtn">
-                    <i class="fas fa-arrow-right" style="margin-right: 6px;"></i> Search
+                    <i class="fas fa-arrow-right"></i> Search
                 </button>
             </div>
-            
-            <!-- Last Updated Info - Will be populated from sheet -->
             <div class="last-updated" id="lastUpdatedContainer">
                 <i class="far fa-clock last-updated-icon"></i>
                 <span class="last-updated-text">Last updated on</span>
@@ -773,361 +490,256 @@
             </div>
         </div>
 
-        <!-- Dynamic content area -->
+        <!-- dynamic content -->
         <div id="content">
-            <!-- Welcome message -->
             <div class="card" style="text-align: center; padding: 48px 24px;">
-                <i class="fas fa-chart-line" style="font-size: 56px; color: #7b1e3a; opacity: 0.5; margin-bottom: 16px;"></i>
-                <div style="font-size: 20px; font-weight: 600; color: #1e293b; margin-bottom: 8px;">Welcome to ARDM Performance Report</div>
-                <div class="text-xs" style="color: #64748b;">Enter an SAP ID above to view performance data</div>
+                <i class="fas fa-chart-line" style="font-size: 56px; color: #7b1e3a; opacity: 0.4; margin-bottom: 16px;"></i>
+                <div style="font-size: 1.4rem; font-weight: 600; color: #1e293b; margin-bottom: 8px;">Welcome</div>
+                <div class="text-xs" style="color: #6f7d95;">Enter an SAP ID to view performance data</div>
             </div>
         </div>
     </div>
 
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzKXDilaOh8JJrTypyUGilXfezrah5Hd4QnEC6iM8tloMuQVIYODupBZV6H4DO9DKIIQg/exec";
+        (function() {
+            // ---------- CONSTANTS (unchanged) ----------
+            const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzKXDilaOh8JJrTypyUGilXfezrah5Hd4QnEC6iM8tloMuQVIYODupBZV6H4DO9DKIIQg/exec";
+            const searchBtn = document.getElementById('searchBtn');
+            const sapInput = document.getElementById('sapInput');
+            const lastUpdatedDate = document.getElementById('lastUpdatedDate');
 
-        const searchBtn = document.getElementById('searchBtn');
-        const sapInput = document.getElementById('sapInput');
-        const lastUpdatedDate = document.getElementById('lastUpdatedDate');
-
-        function formatNumberWithCommas(value) {
-            const num = Number(value) || 0;
-            return num.toLocaleString('en-IN');
-        }
-
-        // Function to fetch last updated date from metadata endpoint
-        async function fetchLastUpdatedDate() {
-            try {
-                const response = await fetch(`${WEB_APP_URL}?type=metadata`);
-                const data = await response.json();
-                
-                if (data.lastUpdated) {
-                    const date = new Date(data.lastUpdated);
-                    const options = { 
-                        day: '2-digit', 
-                        month: 'short', 
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: true
-                    };
-                    lastUpdatedDate.textContent = date.toLocaleString('en-IN', options);
-                }
-            } catch (error) {
-                console.error('Error fetching last updated date:', error);
+            // helper: format number with commas (Indian)
+            function formatNumberWithCommas(value) {
+                const num = Number(value) || 0;
+                return num.toLocaleString('en-IN');
             }
-        }
 
-        // Call fetchLastUpdatedDate when page loads
-        fetchLastUpdatedDate();
-
-        function showLoading() {
-            document.getElementById("content").innerHTML = `
-                <div class="loading-skeleton">
-                    <div class="loading-card">
-                        <div class="loading-line short"></div>
-                        <div class="loading-line medium"></div>
-                        <div class="loading-line long"></div>
-                    </div>
-                    <div class="loading-card">
-                        <div class="loading-line short"></div>
-                        <div class="loading-line medium"></div>
-                        <div class="loading-line long"></div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showError(msg) {
-            document.getElementById("content").innerHTML = `
-                <div class="error-card">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <div style="font-weight: 600; color: #b91c1c; font-size: 18px; margin-bottom: 8px;">Error</div>
-                    <div style="color: #64748b;">${msg || 'Unable to load data'}</div>
-                </div>
-            `;
-        }
-
-        window.toggleMonthSection = function(header) {
-            const section = header.closest('.month-section');
-            const content = section.querySelector('.month-content');
-            header.classList.toggle('expanded');
-            content.classList.toggle('expanded');
-        };
-
-        function getValue(obj, possibleKeys, defaultValue = '—') {
-            if (!obj) return defaultValue;
-            
-            for (let key of possibleKeys) {
-                if (obj[key] !== undefined && obj[key] !== null && obj[key] !== '') {
-                    return obj[key];
-                }
+            // format percent (from 0.XX to XX%) – new for persistency
+            function formatPercent(value) {
+                if (value === '—' || value === undefined || value === null || value === '') return '—';
+                const num = parseFloat(value);
+                if (isNaN(num)) return value;
+                // if it's already > 1 probably it's stored as 0.87 → 87%
+                if (num <= 1) return Math.round(num * 100) + '%';
+                return Math.round(num) + '%';  // fallback
             }
-            return defaultValue;
-        }
 
-        function calculateTotals(emp, months) {
-            let totalWRP = 0;
-            let totalWCP = 0;
-            
-            months.forEach(m => {
-                totalWRP += Number(emp[m.wrpKey]) || 0;
-                totalWCP += Number(emp[m.wcpKey]) || 0;
-            });
-            
-            return { totalWRP, totalWCP };
-        }
-
-        function fetchData() {
-            const sap = sapInput.value.trim();
-            
-            if (!sap) {
-                showError('Please enter an SAP ID');
-                sapInput.focus();
-                return;
-            }
-            
-            searchBtn.disabled = true;
-            showLoading();
-            
-            fetch(`${WEB_APP_URL}?sap=${encodeURIComponent(sap)}`)
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        showError(data.error);
-                    } else {
-                        renderDashboard(data);
-                        
-                        // Update last updated date from the employee data if available
-                        const lastUpdatedFromSheet = getValue(data, ['Last updated on', 'Last Updated On', 'last updated on']);
-                        if (lastUpdatedFromSheet && lastUpdatedFromSheet !== '—') {
-                            const date = new Date(lastUpdatedFromSheet);
-                            if (!isNaN(date.getTime())) {
-                                const options = { 
-                                    day: '2-digit', 
-                                    month: 'short', 
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    hour12: true
-                                };
-                                lastUpdatedDate.textContent = date.toLocaleString('en-IN', options);
-                            } else {
-                                // If not a valid date, show as is
-                                lastUpdatedDate.textContent = lastUpdatedFromSheet;
-                            }
+            async function fetchLastUpdatedDate() {
+                try {
+                    const response = await fetch(`${WEB_APP_URL}?type=metadata`);
+                    const data = await response.json();
+                    if (data.lastUpdated) {
+                        const date = new Date(data.lastUpdated);
+                        if (!isNaN(date.getTime())) {
+                            lastUpdatedDate.textContent = date.toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:true });
+                        } else {
+                            lastUpdatedDate.textContent = data.lastUpdated;
                         }
                     }
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    showError('Connection error. Please try again.');
-                })
-                .finally(() => {
-                    searchBtn.disabled = false;
+                } catch (e) { console.error(e); }
+            }
+            fetchLastUpdatedDate();
+
+            function showLoading() {
+                document.getElementById("content").innerHTML = `
+                    <div class="loading-skeleton">
+                        <div class="loading-card" style="background:white; border-radius:28px; padding:20px; margin-bottom:16px;">
+                            <div class="loading-line short" style="height:14px; background:#eef2f6; width:40%; border-radius:20px; margin-bottom:12px;"></div>
+                            <div class="loading-line medium" style="height:14px; background:#eef2f6; width:70%; border-radius:20px; margin-bottom:12px;"></div>
+                            <div class="loading-line long" style="height:14px; background:#eef2f6; width:90%; border-radius:20px;"></div>
+                        </div>
+                    </div>`;
+            }
+
+            function showError(msg) {
+                document.getElementById("content").innerHTML = `
+                    <div class="error-card">
+                        <i class="fas fa-exclamation-circle" style="font-size:48px; color:#b91c1c; margin-bottom:16px;"></i>
+                        <div style="font-weight:600; color:#b91c1c; font-size:1.2rem; margin-bottom:8px;">Error</div>
+                        <div style="color:#64748b;">${msg || 'Unable to load data'}</div>
+                    </div>`;
+            }
+
+            window.toggleMonthSection = function(header) {
+                const section = header.closest('.month-section');
+                const content = section.querySelector('.month-content');
+                header.classList.toggle('expanded');
+                content.classList.toggle('expanded');
+            };
+
+            function getValue(obj, possibleKeys, defaultValue = '—') {
+                if (!obj) return defaultValue;
+                for (let key of possibleKeys) {
+                    if (obj[key] !== undefined && obj[key] !== null && obj[key] !== '')
+                        return obj[key];
+                }
+                return defaultValue;
+            }
+
+            function calculateTotals(emp, months) {
+                let totalWRP = 0, totalWCP = 0;
+                months.forEach(m => {
+                    totalWRP += Number(emp[m.wrpKey]) || 0;
+                    totalWCP += Number(emp[m.wcpKey]) || 0;
                 });
-        }
+                return { totalWRP, totalWCP };
+            }
 
-        function renderDashboard(emp) {
-            const months = [
-                { wrpKey: "WRP_4", wcpKey: "CCP_4", name: "Apr" },
-                { wrpKey: "WRP_5", wcpKey: "CCP_5", name: "May" },
-                { wrpKey: "WRP_6", wcpKey: "CCP_6", name: "Jun" },
-                { wrpKey: "WRP_7", wcpKey: "CCP_7", name: "Jul" },
-                { wrpKey: "WRP_8", wcpKey: "CCP_8", name: "Aug" },
-                { wrpKey: "WRP_9", wcpKey: "CCP_9", name: "Sep" },
-                { wrpKey: "WRP_10", wcpKey: "CCP_10", name: "Oct" },
-                { wrpKey: "WRP_11", wcpKey: "CCP_11", name: "Nov" },
-                { wrpKey: "WRP_12", wcpKey: "CCP_12", name: "Dec" },
-                { wrpKey: "WRP_1", wcpKey: "CCP_1", name: "Jan" },
-                { wrpKey: "WRP_2", wcpKey: "CCP_2", name: "Feb" },
-                { wrpKey: "WRP_3", wcpKey: "CCP_3", name: "Mar" }
-            ];
+            function fetchData() {
+                const sap = sapInput.value.trim();
+                if (!sap) { showError('Enter SAP ID'); sapInput.focus(); return; }
+                searchBtn.disabled = true;
+                showLoading();
 
-            const latest = months[months.length-1];
-            const latestWrp = emp[latest.wrpKey] || 0;
-            const latestWcp = emp[latest.wcpKey] || 0;
-            
-            const { totalWRP, totalWCP } = calculateTotals(emp, months);
-            const persistency = getValue(emp, ['YTD Persistency', 'Persistencey', 'PERSISTENCY'], '—');
+                fetch(`${WEB_APP_URL}?sap=${encodeURIComponent(sap)}`)
+                    .then(r => r.ok ? r.json() : Promise.reject('HTTP error'))
+                    .then(data => {
+                        if (data.error) showError(data.error);
+                        else renderDashboard(data);
+                    })
+                    .catch(() => showError('Connection error'))
+                    .finally(() => searchBtn.disabled = false);
+            }
 
-            document.getElementById("content").innerHTML = `
-                <!-- 1. ARDM DETAILS -->
-                <div class="card">
-                    <div class="sap-badge">
-                        <i class="fas fa-id-card"></i> SAP · ${getValue(emp, ['SAP', 'sap', 'SAP Code', 'SAP_ID', 'SAP ID'])}
+            function renderDashboard(emp) {
+                // month definitions – unchanged
+                const months = [
+                    { wrpKey: "WRP_4", wcpKey: "CCP_4", name: "Apr" },
+                    { wrpKey: "WRP_5", wcpKey: "CCP_5", name: "May" },
+                    { wrpKey: "WRP_6", wcpKey: "CCP_6", name: "Jun" },
+                    { wrpKey: "WRP_7", wcpKey: "CCP_7", name: "Jul" },
+                    { wrpKey: "WRP_8", wcpKey: "CCP_8", name: "Aug" },
+                    { wrpKey: "WRP_9", wcpKey: "CCP_9", name: "Sep" },
+                    { wrpKey: "WRP_10", wcpKey: "CCP_10", name: "Oct" },
+                    { wrpKey: "WRP_11", wcpKey: "CCP_11", name: "Nov" },
+                    { wrpKey: "WRP_12", wcpKey: "CCP_12", name: "Dec" },
+                    { wrpKey: "WRP_1", wcpKey: "CCP_1", name: "Jan" },
+                    { wrpKey: "WRP_2", wcpKey: "CCP_2", name: "Feb" },
+                    { wrpKey: "WRP_3", wcpKey: "CCP_3", name: "Mar" }
+                ];
+
+                const latest = months[months.length-1];
+                const latestWrp = Number(emp[latest.wrpKey]) || 0;
+                const latestWcp = Number(emp[latest.wcpKey]) || 0;
+                const { totalWRP, totalWCP } = calculateTotals(emp, months);
+                // format persistency as % (fix point 1)
+                const rawPersistency = getValue(emp, ['YTD Persistency', 'Persistencey', 'PERSISTENCY'], '—');
+                const formattedPersistency = rawPersistency !== '—' ? formatPercent(rawPersistency) : '—';
+
+                // Build month tiles for horizontal scroll (including feb/mar)
+                const monthTilesHtml = months.map(m => {
+                    const wrpVal = Number(emp[m.wrpKey]) || 0;
+                    const wcpVal = Number(emp[m.wcpKey]) || 0;
+                    return `<div class="month-tile">
+                        <div class="month-name">${m.name}</div>
+                        <div class="month-wrp ${wrpVal === 0 ? 'zero-value' : ''}">${formatNumberWithCommas(wrpVal)}</div>
+                        <div class="month-divider">WRP</div>
+                        <div class="month-wcp ${wcpVal === 0 ? 'zero-value' : ''}">${formatNumberWithCommas(wcpVal)}</div>
+                        <div class="month-divider">WCP</div>
+                    </div>`;
+                }).join('');
+
+                const html = `
+                    <!-- employee card -->
+                    <div class="card">
+                        <div class="sap-badge"><i class="fas fa-id-card"></i> SAP · ${getValue(emp, ['SAP', 'sap', 'SAP Code', 'SAP_ID', 'SAP ID'])}</div>
+                        <div class="employee-name">${getValue(emp, ['Name of the ARDM', 'name', 'Employee Name', 'ARDM Name', 'ARDM'])}</div>
+                        <div class="meta-grid">
+                            <div><div class="meta-label"><i class="fas fa-code-branch" style="color:#7b1e3a;"></i> Branch</div><div class="meta-value">${getValue(emp, ['Salesunit Name', 'branch', 'Sales Unit', 'BRANCH'])}</div></div>
+                            <div><div class="meta-label"><i class="fas fa-map-marker-alt" style="color:#7b1e3a;"></i> Region</div><div class="meta-value">${getValue(emp, ['Region', 'region', 'REGION'])}</div></div>
+                            <div><div class="meta-label"><i class="fas fa-tag" style="color:#7b1e3a;"></i> Channel</div><div class="meta-value">${getValue(emp, ['Channel Name', 'channel', 'Channel'])}</div></div>
+                        </div>
                     </div>
-                    <div class="employee-name">${getValue(emp, ['Name of the ARDM', 'name', 'Employee Name', 'ARDM Name', 'ARDM'])}</div>
-                    <div class="meta-grid">
-                        <div class="meta-item">
-                            <div class="meta-label"><i class="fas fa-code-branch" style="margin-right: 4px; color: #7b1e3a;"></i> Branch</div>
-                            <div class="meta-value">${getValue(emp, ['Salesunit Name', 'branch', 'Sales Unit', 'Salesunit', 'BRANCH'])}</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label"><i class="fas fa-map-marker-alt" style="margin-right: 4px; color: #7b1e3a;"></i> Region</div>
-                            <div class="meta-value">${getValue(emp, ['Region', 'region', 'REGION'])}</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label"><i class="fas fa-tag" style="margin-right: 4px; color: #7b1e3a;"></i> Channel</div>
-                            <div class="meta-value">${getValue(emp, ['Channel Name', 'channel', 'Channel', 'CHANNEL'])}</div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- 2. YTD DETAILS -->
-                <div class="card">
-                    <div class="section-header">
-                        <h2><i class="far fa-calendar-alt" style="margin-right: 6px; color: #7b1e3a;"></i> YTD Details</h2>
-                        <div class="accent-line"></div>
-                    </div>
-                    <div class="ytd-grid">
-                        <div class="ytd-card">
-                            <div class="ytd-label">WRP</div>
-                            <div class="ytd-value wrp">${formatNumberWithCommas(totalWRP)}</div>
-                        </div>
-                        <div class="ytd-card">
-                            <div class="ytd-label">WCP/CCP</div>
-                            <div class="ytd-value wcp">${formatNumberWithCommas(totalWCP)}</div>
-                        </div>
-                        <div class="ytd-card">
-                            <div class="ytd-label">Persistency</div>
-                            <div class="ytd-value">${persistency}</div>
+                    <!-- YTD with persistency as percent -->
+                    <div class="card">
+                        <div class="section-header"><h2><i class="far fa-calendar-alt" style="margin-right:6px; color:#7b1e3a;"></i> YTD Details</h2><div class="accent-line"></div></div>
+                        <div class="ytd-grid">
+                            <div class="ytd-card"><div class="ytd-label">WRP</div><div class="ytd-value wrp">${formatNumberWithCommas(totalWRP)}</div></div>
+                            <div class="ytd-card"><div class="ytd-label">WCP/CCP</div><div class="ytd-value wcp">${formatNumberWithCommas(totalWCP)}</div></div>
+                            <div class="ytd-card"><div class="ytd-label">Persistency</div><div class="ytd-value" style="font-size:1.5rem;">${formattedPersistency}</div></div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 3. CCP FOR CHAMPION CLUB -->
-                <div class="card">
-                    <div class="ccp-container">
-                        <div class="ccp-header">
-                            <div class="ccp-title">
-                                <i class="fas fa-trophy"></i> CCP for Champion Club
-                            </div>
-                            <div class="ccp-main-value">${formatNumberWithCommas(getValue(emp, ['CCP for Champion Club', 'CCP Champion Club', 'CCP_Champion'], 0))}</div>
+                    <!-- SHORTFALL section (replaces 'CCP for Champion Club') -->
+                    <div class="card">
+                        <div class="shortfall-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Shortfall</h3>
                         </div>
-                        
                         <div class="shortfall-list">
-                            <div class="shortfall-item">
-                                <span class="shortfall-item-label">
-                                    <i class="fas fa-trophy"></i> Champion Club Shortfall
-                                </span>
-                                <span class="shortfall-item-value">${formatNumberWithCommas(getValue(emp, ['Champion Club Shortfall', 'CC Shortfall', 'CC_Shortfall'], 0))}</span>
-                            </div>
-                            <div class="shortfall-item">
-                                <span class="shortfall-item-label">
-                                    <i class="fas fa-star"></i> Super Champion Shortfall
-                                </span>
-                                <span class="shortfall-item-value">${formatNumberWithCommas(getValue(emp, ['Super Champion & Abv Shortfall', 'SC Shortfall', 'SC_Shortfall'], 0))}</span>
-                            </div>
-                            <div class="shortfall-item">
-                                <span class="shortfall-item-label">
-                                    <i class="fas fa-coins"></i> Millionaire Shortfall
-                                </span>
-                                <span class="shortfall-item-value">${formatNumberWithCommas(getValue(emp, ['Millionaire Shortfall', 'M Shortfall'], 0))}</span>
-                            </div>
-                            <div class="shortfall-item">
-                                <span class="shortfall-item-label">
-                                    <i class="fas fa-gem"></i> Multi-Millionaire Shortfall
-                                </span>
-                                <span class="shortfall-item-value">${formatNumberWithCommas(getValue(emp, ['Multi Millionaire Shortfall', 'MM Shortfall'], 0))}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. MONTHLY PERFORMANCE -->
-                <div class="card">
-                    <div class="section-header">
-                        <h2><i class="fas fa-chart-line" style="margin-right: 6px; color: #7b1e3a;"></i> Monthly Performance</h2>
-                        <div class="accent-line"></div>
-                    </div>
-                    
-                    <div class="monthly-grid">
-                        <div class="monthly-card">
-                            <div class="monthly-label"><i class="fas fa-user-plus"></i> L1 Recruited</div>
-                            <div class="monthly-value">${formatNumberWithCommas(getValue(emp, ['L1_Recruited', 'L1 Recruited', 'L1Recruited'], 0))}</div>
-                        </div>
-                        <div class="monthly-card">
-                            <div class="monthly-label"><i class="fas fa-user-check"></i> Active L1</div>
-                            <div class="monthly-value">${formatNumberWithCommas(getValue(emp, ['L1_Active', 'L1 Active', 'L1Active'], 0))}</div>
-                        </div>
-                        <div class="monthly-card">
-                            <div class="monthly-label"><i class="fas fa-file-invoice"></i> NOP</div>
-                            <div class="monthly-value">${formatNumberWithCommas(getValue(emp, ['NOP', 'Nop'], 0))}</div>
-                        </div>
-                        <div class="monthly-card">
-                            <div class="monthly-label"><i class="fas fa-bolt"></i> MTD WCP</div>
-                            <div class="monthly-value">${formatNumberWithCommas(getValue(emp, ['MTD_WCP', 'MTD WCP', 'MTD'], 0))}</div>
+                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-trophy"></i> Champion Club</span><span class="shortfall-item-value">${formatNumberWithCommas(getValue(emp, ['Champion Club Shortfall', 'CC Shortfall', 'CC_Shortfall'], 0))}</span></div>
+                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-star"></i> Super Champion</span><span class="shortfall-item-value">${formatNumberWithCommas(getValue(emp, ['Super Champion & Abv Shortfall', 'SC Shortfall', 'SC_Shortfall'], 0))}</span></div>
+                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-coins"></i> Millionaire</span><span class="shortfall-item-value">${formatNumberWithCommas(getValue(emp, ['Millionaire Shortfall', 'M Shortfall'], 0))}</span></div>
+                            <div class="shortfall-item"><span class="shortfall-item-label"><i class="fas fa-gem"></i> Multi‑Millionaire</span><span class="shortfall-item-value">${formatNumberWithCommas(getValue(emp, ['Multi Millionaire Shortfall', 'MM Shortfall'], 0))}</span></div>
                         </div>
                     </div>
 
-                    <div class="month-section">
-                        <div class="month-header" onclick="toggleMonthSection(this)">
-                            <div class="month-header-left">
-                                <i class="fas fa-calendar-week"></i>
-                                <span>Month on Month WRP & WCP</span>
-                                <i class="fas fa-chevron-down dropdown-icon"></i>
-                            </div>
-                            <div class="preview-values">
-                                ${latest.name}: ${formatNumberWithCommas(latestWrp)} / ${formatNumberWithCommas(latestWcp)}
-                            </div>
+                    <!-- monthly KPIs -->
+                    <div class="card">
+                        <div class="section-header"><h2><i class="fas fa-chart-line" style="margin-right:6px; color:#7b1e3a;"></i> Monthly KPIs</h2><div class="accent-line"></div></div>
+                        <div class="monthly-grid">
+                            <div class="monthly-card"><div class="monthly-label"><i class="fas fa-user-plus"></i> L1 Recruited</div><div class="monthly-value">${formatNumberWithCommas(getValue(emp, ['L1_Recruited','L1 Recruited'],0))}</div></div>
+                            <div class="monthly-card"><div class="monthly-label"><i class="fas fa-user-check"></i> Active L1</div><div class="monthly-value">${formatNumberWithCommas(getValue(emp, ['L1_Active','L1 Active'],0))}</div></div>
+                            <div class="monthly-card"><div class="monthly-label"><i class="fas fa-file-invoice"></i> NOP</div><div class="monthly-value">${formatNumberWithCommas(getValue(emp, ['NOP','Nop'],0))}</div></div>
+                            <div class="monthly-card"><div class="monthly-label"><i class="fas fa-bolt"></i> MTD WCP</div><div class="monthly-value">${formatNumberWithCommas(getValue(emp, ['MTD_WCP','MTD WCP','MTD'],0))}</div></div>
                         </div>
-                        <div class="month-content">
-                            <div class="month-header-row">
-                                <span>Month</span>
-                                <div style="display:flex; gap:24px;">
-                                    <span>WRP</span>
-                                    <span>WCP</span>
+
+                        <!-- MoM completely redesigned: horizontal cards + preview line -->
+                        <div class="mom-section">
+                            <div class="mom-header">
+                                <h4><i class="fas fa-calendar-week"></i> MoM Overview</h4>
+                                <div class="latest-mom-preview">${latest.name} <span>WRP ${formatNumberWithCommas(latestWrp)}</span> / <span>WCP ${formatNumberWithCommas(latestWcp)}</span></div>
+                            </div>
+                            <!-- scrollable month tiles (feb + mar visible) -->
+                            <div class="month-scroll">
+                                ${monthTilesHtml}
+                            </div>
+                            <!-- total YTD row for quick reference -->
+                            <div class="total-ytd-row">
+                                <span class="total-ytd-label"><i class="fas fa-calculator" style="color:#7b1e3a;"></i> YTD total</span>
+                                <div class="total-ytd-numbers">
+                                    <span class="total-wrp">${formatNumberWithCommas(totalWRP)}</span>
+                                    <span class="total-wcp">${formatNumberWithCommas(totalWCP)}</span>
                                 </div>
                             </div>
-                            <div class="month-rows">
-                                ${months.map(m => {
-                                    const wrpVal = emp[m.wrpKey] || 0;
-                                    const wcpVal = emp[m.wcpKey] || 0;
-                                    return `
-                                        <div class="month-row">
-                                            <span class="month">${m.name}</span>
-                                            <div style="display:flex; gap:24px; align-items:center;">
-                                                <span class="wrp-value ${wrpVal === 0 ? 'zero-value' : ''}">${formatNumberWithCommas(wrpVal)}</span>
-                                                <span class="wcp-value ${wcpVal === 0 ? 'zero-value' : ''}">${formatNumberWithCommas(wcpVal)}</span>
-                                            </div>
-                                        </div>
-                                    `;
-                                }).join('')}
-                                
-                                <div class="total-row">
-                                    <span class="total-label">
-                                        <i class="fas fa-calculator"></i> Total YTD
-                                    </span>
-                                    <div class="total-values">
-                                        <span class="total-wrp">${formatNumberWithCommas(totalWRP)}</span>
-                                        <span class="total-wcp">${formatNumberWithCommas(totalWCP)}</span>
-                                    </div>
+                        </div>
+
+                        <!-- expandable old month‑by‑month table (preserved, but collapsed by default) -->
+                        <div class="month-section" style="margin-top:20px;">
+                            <div class="month-header" onclick="toggleMonthSection(this)">
+                                <div class="month-header-left"><i class="fas fa-chevron-down dropdown-icon"></i> <span>Detailed month view</span></div>
+                                <div class="preview-values">${latest.name}: ${formatNumberWithCommas(latestWrp)} / ${formatNumberWithCommas(latestWcp)}</div>
+                            </div>
+                            <div class="month-content">
+                                <div class="month-header-row" style="display:flex; justify-content:space-between; padding:10px 16px; color:#5c728b; font-size:0.8rem;"><span>Month</span><div style="display:flex; gap:24px;"><span>WRP</span><span>WCP</span></div></div>
+                                <div class="month-rows" style="padding:0 8px;">
+                                    ${months.map(m => {
+                                        const wrp = Number(emp[m.wrpKey]) || 0;
+                                        const wcp = Number(emp[m.wcpKey]) || 0;
+                                        return `<div class="month-row" style="display:flex; justify-content:space-between; background:white; border-radius:16px; padding:14px 16px; margin-bottom:4px;">
+                                            <span style="font-weight:600;">${m.name}</span>
+                                            <div style="display:flex; gap:24px;"><span style="color:#7b1e3a; font-weight:700;">${formatNumberWithCommas(wrp)}</span><span style="color:#0f5c5c; font-weight:700;">${formatNumberWithCommas(wcp)}</span></div>
+                                        </div>`;
+                                    }).join('')}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="footer-note">
-                    <i class="far fa-calendar-check"></i> Data as of ${lastUpdatedDate.textContent}
-                    <i class="fas fa-rupee-sign" style="margin-left: 4px;"></i>
-                </div>
-            `;
-        }
+                    <div class="footer-note">
+                        <i class="far fa-calendar-check"></i> Data as of ${lastUpdatedDate.textContent}
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                `;
+                document.getElementById("content").innerHTML = html;
+            }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            sapInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') fetchData();
-            });
-            sapInput.addEventListener('input', function() {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-        });
+            // attach listeners
+            sapInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchData(); });
+            sapInput.addEventListener('input', function() { this.value = this.value.replace(/[^0-9]/g, ''); });
+            window.fetchData = fetchData;  // expose for onclick
+        })();
     </script>
 </body>
 </html>
