@@ -570,11 +570,11 @@ body::before{
               <div class="ytd-value nop num-flash" id="ytd-nop">${formatInt(ytdNOP)}</div>
             </div>
             <div class="ytd-card wcp-cell">
-              <div class="ytd-label">WCP</div>
+              <div class="ytd-label">CCP/WCP</div>
               <div class="ytd-value wcp num-flash" id="ytd-wcp">${fmt1(ytdWCPVal)}</div>
             </div>
             <div class="ytd-card per-cell">
-              <div class="ytd-label">Persistency</div>
+              <div class="ytd-label">13M</div>
               <div class="ytd-value num-flash">${persistency}</div>
             </div>
           </div>
@@ -584,7 +584,7 @@ body::before{
         <div class="inner-card">
           <div class="shortfall-header">
             <div class="shortfall-header-icon"><i class="fas fa-scale-unbalanced"></i></div>
-            <h3>Shortfall</h3>
+            <h3>CEO Club Shortfall</h3>
           </div>
           <div class="shortfall-list">
             <div class="shortfall-item">
@@ -639,7 +639,7 @@ body::before{
               <div class="monthly-value">${formatInt(getValue(emp,['NOP','Nop'],0))}</div>
             </div>
             <div class="monthly-card">
-              <div class="monthly-label"><i class="fas fa-bolt"></i> MTD WCP</div>
+              <div class="monthly-label"><i class="fas fa-bolt"></i> WCP</div>
               <div class="monthly-value">${fmt1(mtdWCPVal)}</div>
             </div>
           </div>
@@ -648,7 +648,7 @@ body::before{
             <div class="month-header" onclick="toggleMonthSection(this)">
               <div class="month-header-left">
                 <span class="chevron-wrap"><i class="fas fa-chevron-down"></i></span>
-                Month-wise WRP &amp; WCP
+                Issued WRP &amp; WCP
               </div>
               <div class="preview-values">${latest.name}: ${fmt1(latestWrp)} / ${fmt1(latestWcp)}</div>
             </div>
@@ -665,7 +665,7 @@ body::before{
         <div class="inner-card">
           <div class="reward-inner-row">
             <div class="reward-left">
-              <div class="reward-eyebrow"><i class="fas fa-crown"></i> Final Reward</div>
+              <div class="reward-eyebrow"><i class="fas fa-crown"></i> Final Reward Slab</div>
               <div class="reward-value-text">${finalReward}</div>
             </div>
             <div class="reward-icon-box"><i class="fas fa-crown"></i></div>
@@ -673,7 +673,7 @@ body::before{
         </div>
 
         <!-- GROUP 2 FOOTER — MC last updated -->
-        ${groupFooter(mcLastStr, 'MC data')}
+        ${groupFooter(mcLastStr, 'MTD data')}
       </div>
 
       <!-- FOOTER -->
