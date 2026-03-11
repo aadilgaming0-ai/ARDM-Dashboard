@@ -486,7 +486,7 @@ body::before{
     const totals    = calculateTotals(emp, months);
 
     const ytdNOP    = getValue(emp, ['YTD NOP'], 0);
-    const ytdWCPVal = Number(getValue(emp, ['YTD CCP/WCP','YTD_CCP/WCP'], totals.totalWCP));
+    const ytdWCPVal = Number(getValue(emp, ['YTD CCP / WCP','YTD_CCP / WCP'], totals.totalWCP));
     const persistency = formatPercent(getValue(emp, ['YTD Persistency','Persistencey','PERSISTENCY'], '—'));
 
     /* Final Reward — raw value straight from sheet, no modification */
@@ -495,7 +495,7 @@ body::before{
     const monthlyWRP = Number(getValue(emp, ['WRP'], 0));
     const mtdWCPVal  = Number(getValue(emp, ['MTD_WCP','MTD WCP/CCP'], 0));
 
-    const sfCC = Number(getValue(emp, ['Champion Club Shortfall','CC Shortfall'], 0));
+    const sfCC = Number(getValue(emp, ['Champion Shortfall','CC Shortfall'], 0));
     const sfSC = Number(getValue(emp, ['Super Champion & Abv Shortfall','Super Champion Shortfall'], 0));
     const sfM  = Number(getValue(emp, ['Millionaire Shortfall','M Shortfall'], 0));
     const sfMM = Number(getValue(emp, ['Multi-Millionaire Shortfall','MM Shortfall'], 0));
@@ -589,7 +589,7 @@ body::before{
           <div class="shortfall-list">
             <div class="shortfall-item">
               <span class="shortfall-item-label">
-                <span class="sf-icon-wrap"><i class="fas fa-trophy"></i></span>Champion Club
+                <span class="sf-icon-wrap"><i class="fas fa-trophy"></i></span>Champion
               </span>
               <span class="shortfall-item-value">${sfCC===0?'—':fmt1(sfCC)}</span>
             </div>
