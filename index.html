@@ -486,7 +486,7 @@ body::before{
     const totals    = calculateTotals(emp, months);
 
     const ytdNOP    = getValue(emp, ['YTD NOP'], 0);
-    const ytdWCPVal = Number(getValue(emp, ['YTD WCP','YTD_WCP'], totals.totalWCP));
+    const ytdWCPVal = Number(getValue(emp, ['YTD CCP/WCP','YTD_CCP/WCP'], totals.totalWCP));
     const persistency = formatPercent(getValue(emp, ['YTD Persistency','Persistencey','PERSISTENCY'], '—'));
 
     /* Final Reward — raw value straight from sheet, no modification */
